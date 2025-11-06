@@ -232,7 +232,7 @@ export const staffApi = {
             });
             return res.data;
         } catch (error) {
-            console.error('Add Staff Error:', error.response || error.message);
+            console.error('Add Staff Error :', error.response || error.message);
             throw error;
         }
     },
