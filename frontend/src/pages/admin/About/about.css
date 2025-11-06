@@ -1,0 +1,24 @@
+.parallax {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.parallax::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/public/hero-bg.avif") center/cover no-repeat;
+  background-attachment: fixed;
+  filter: blur(4px);  /* Adjust blur value */
+  transform: scale(1.1); /* Prevents edge gaps after blur */
+  z-index: -1;
+}
+
+
+.parallax2 {
+  background-image: url("/public/features-bg.avif"); /* Replace with features bg */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
