@@ -1,70 +1,113 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Smart-Society-Management-System-Using-ML
+# 🏙️ Smart Society Management System (SSMS)
 
-## Available Scripts
+![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)
+![Flask](https://img.shields.io/badge/Backend-Flask-lightgrey)
+![React](https://img.shields.io/badge/Frontend-React-blue)
+![Machine Learning](https://img.shields.io/badge/ML-TFIDF%20%2B%20LogisticRegression-orange)
+![Database](https://img.shields.io/badge/Database-MySQL-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🔍 Overview  
+**Smart Society Management System (SSMS)** is a full-stack web application designed to simplify and automate daily activities in a residential society.  
+It offers features like complaint management, staff tracking, visitor registration, and maintenance handling — with an intelligent ML-based complaint classifier.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This system ensures seamless communication between residents, staff, and the management committee.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🚀 Key Features  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🧾 Complaint Management (AI-Powered)
+- Automatically classifies complaints into **Utility**, **Maintenance**, or **Security** categories.
+- Uses **TF-IDF + Logistic Regression** for text classification.
+- Residents can attach images or details for quick resolution.
 
-### `npm run build`
+### 👷 Staff Management
+- Add, edit, and view all staff members (electricians, cleaners, security guards, etc.).
+- Track their department, position, hire date, and current status (Active, On Leave, Inactive).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🧑‍🤝‍🧑 Member & Housing Unit Management
+- Maintain structured records of all flats, members, and housing blocks.
+- Easy mapping between residents and units.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 🧰 Maintenance & Utilities
+- Log and monitor utility issues like water supply, garbage collection, or light failures.
+- Assign to relevant staff automatically.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 📢 Notices & Announcements
+- Admin can post important notices for residents.
+- View all active or past notices in one place.
 
-### `npm run eject`
+### 🧑‍💻 Visitor Pre-Registration
+- Residents can pre-book visitors using a simple form.
+- Security staff can scan or verify visitors at the gate using QR-based entry.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 🧠 Machine Learning Integration
+- Complaint text classification using **Scikit-learn**.
+- Helps in automatic routing of issues to respective departments.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🛠️ Tech Stack  
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+| Layer | Technology Used |
+|-------|------------------|
+| **Frontend** | React.js, Bootstrap 5, Axios |
+| **Backend** | Flask (Python), SQLAlchemy ORM |
+| **Database** | MySQL / PostgreSQL |
+| **Machine Learning** | Scikit-learn (TF-IDF Vectorizer + Logistic Regression) |
+| **Others** | Flask-CORS, dotenv, REST APIs |
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## ⚙️ Installation & Setup  
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 🧩 Backend Setup  
 
-### Code Splitting
+```bash
+# 🪜 Step 1 — Navigate to the backend folder
+cd backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# ⚡ Step 2 — Install backend dependencies
+pip install -r requirements.txt
 
-### Analyzing the Bundle Size
+# ▶️ Step 3 — Run the Flask server
+python app.py
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# ✅ Backend server will run at:
+# http://127.0.0.1:5000
+```
+---
 
-### Making a Progressive Web App
+### 💻 Frontend Setup  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+# 🪜 Step 1 — Navigate to the frontend folder
+cd frontend
 
-### Advanced Configuration
+# ⚡ Step 2 — Install frontend dependencies
+npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+# ▶️ Step 3 — Start the React app
+npm start
 
-### Deployment
+# ✅ Frontend will be available at:
+# http://localhost:3000
+``` ← ✅ this closes the frontend code block
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Visit the app at 👉 [http://localhost:3000](http://localhost:3000)
+```
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 💡 Future Enhancements  
+- 🔔 Real-time notifications for complaint updates  
+- 💳 Online payment module for maintenance bills  
+- 🧑‍💼 Role-based access control (Admin, Staff, Resident)  
+- 🎙️ Voice command integration for accessibility  
+- 📊 Dashboard with analytics and visual reports
+>>>>>>> fef055739fdc6a5935b81f058baed597b9b23b68
