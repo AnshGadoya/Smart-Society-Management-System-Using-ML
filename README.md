@@ -97,10 +97,10 @@ npm start
 
 # ✅ Frontend will be available at:
 # http://localhost:3000
-``` ← ✅ this closes the frontend code block
+```
 
 Visit the app at 👉 [http://localhost:3000](http://localhost:3000)
-```
+
 
 ---
 
