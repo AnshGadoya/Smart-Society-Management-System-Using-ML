@@ -110,4 +110,3 @@ Visit the app at 👉 [http://localhost:3000](http://localhost:3000)
 - 🧑‍💼 Role-based access control (Admin, Staff, Resident)  
 - 🎙️ Voice command integration for accessibility  
 - 📊 Dashboard with analytics and visual reports
->>>>>>> fef055739fdc6a5935b81f058baed597b9b23b68
