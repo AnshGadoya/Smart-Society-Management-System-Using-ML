@@ -1,14 +1,30 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
+import {fetchComplaints} from "../../services/api";
+import {useNavigate} from "react-router-dom";
+import PATHS from "../../utils/constants/Path";
 
 function TrackComplaints() {
-    const [complaints, setComplaints] = useState([
-        { id: 1, title: "Water leakage in bathroom", category: "Maintenance", date: "2025-08-20", status: "Pending" },
-        { id: 2, title: "Power outage in Block A", category: "Utilities", date: "2025-08-21", status: "In Progress" },
-        { id: 3, title: "Unauthorized parking", category: "Security", date: "2025-08-22", status: "Resolved" },
-        { id: 4, title: "Loud music at night", category: "Noise", date: "2025-08-23", status: "Closed" },
-    ]);
+    const [complaints, setComplaints] = useState([ ]);
+    const navigate = useNavigate();
 
-    const [filterStatus, setFilterStatus] = useState("All");
+    useEffect(() => {
+        const getComplaints =
+            async () => {
+                try {
+                    const response = await fetchComplaints();
+                    console.log("complaint are : ", response.data);
+                    setComplaints(response.data);
+                } catch (err) {
+                    console.error("Fetch Staff Error:", err);
+                }
+
+            }
+
+        getComplaints();
+
+    }, []);
+
+    const [filterStatus, setFilterStatus] = useState("Pending");
 
     const filteredComplaints = filterStatus === "All"
         ? complaints
@@ -20,20 +36,37 @@ function TrackComplaints() {
 
             {/* Filter by Status */}
             <div className="mb-4 row">
-                <div className="col-md-3">
-                    <select
-                        className="form-select"
-                        value={filterStatus}
-                        onChange={(e) => setFilterStatus(e.target.value)}
-                    >
-                        <option value="All">All Statuses</option>
-                        <option value="Pending">Pending</option>
-                        <option value="In Progress">In Progress</option>
-                        <option value="Resolved">Resolved</option>
-                        <option value="Closed">Closed</option>
-                    </select>
+                <div className="col-12 d-flex justify-content-between align-items-center">
+
+                    {/* Filter Dropdown on left */}
+                    <div className="col-md-3 p-0">
+                        <select
+                            className="form-select"
+                            value={filterStatus}
+                            onChange={(e) => setFilterStatus(e.target.value)}
+                        >
+                            <option value="All">All Statuses</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Resolved">Resolved</option>
+                        </select>
+                    </div>
+
+                    {/* Button on right */}
+                    <div >
+                        <button
+                            className="btn btn-dark shadow-sm "
+                            onClick={() => {
+                                navigate(PATHS.STAFF);
+                                console.log("Staff button clicked!");
+                            }}
+                        >
+                            Staff Management
+                        </button>
+                    </div>
                 </div>
             </div>
+
+
 
             {/* Complaints Table */}
             <div className="card shadow-sm p-3">
@@ -41,8 +74,10 @@ function TrackComplaints() {
                     <table className="table table-striped">
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Title</th>
+                            <th>Complaint ID</th>
+                            <th>Name</th>
+                            <th>Flat No.</th>
+                            <th>Description</th>
                             <th>Category</th>
                             <th>Date</th>
                             <th>Status</th>
@@ -50,12 +85,14 @@ function TrackComplaints() {
                         </thead>
                         <tbody>
                         {filteredComplaints.length > 0 ? (
-                            filteredComplaints.map((c) => (
-                                <tr key={c.id}>
-                                    <td>{c.id}</td>
-                                    <td>{c.title}</td>
+                            filteredComplaints.map((c,index) => (
+                                <tr key={index}>
+                                    <td>{c.complaint_id}</td>
+                                    <td>{c.resident_name}</td>
+                                    <td>{c.flat_no}</td>
+                                    <td>{c.description}</td>
                                     <td>{c.category}</td>
-                                    <td>{c.date}</td>
+                                    <td>{c.created_at}</td>
                                     <td>
                                             <span
                                                 className={`badge ${

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {fetchComplaints, updateStatus} from "../../services/api";
+import PageHeader from "../../layout/PageHeader";
 
 export default function ViewComplaints() {
     const [complaints, setComplaints] = useState([]);
@@ -35,10 +36,10 @@ export default function ViewComplaints() {
 
     return (
         <div className="container mt-5">
+
+            <PageHeader PageTitle="Staff Management" PageDescription="Complaint History"/>
             <div className="card shadow rounded-3">
-                <div className="card-header bg-primary text-white">
-                    <h3 className="mb-0">All Complaints</h3>
-                </div>
+
                 <div className="card-body p-0">
                     <div className="table-responsive">
                         <table className="table table-hover align-middle mb-0">
@@ -65,11 +66,10 @@ export default function ViewComplaints() {
                                     <td>
                                         <select
                                             value={c.status}
-                                            onChange={(e) => handleStatusChange(c.id, e.target.value)}
+                                            onChange={(e) => handleStatusChange(c.complaint_id, e.target.value)}
                                             className="form-select form-select-sm"
                                         >
                                             <option value="Pending">Pending</option>
-                                            <option value="In Progress">In-Progress</option>
                                             <option value="Resolved">Resolved</option>
                                         </select>
                                     </td>

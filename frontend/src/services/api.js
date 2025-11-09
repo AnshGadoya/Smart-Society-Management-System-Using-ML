@@ -5,8 +5,9 @@ import {
     BLOCK_POST,
     BLOCK_UPDATE,
     COMPLAINT_STATUS,
-    COMPLAINTS,
     COMPLAINTS_BY_STAFF,
+    COMPLAINTS_GET,
+    COMPLAINTS_POST,
     HOUSING_DELETE,
     HOUSING_GET,
     HOUSING_POST,
@@ -113,7 +114,7 @@ export const housingApi = {
 // ---------------- COMPLAINT ----------------
 export const complaintApi = {
     addComplaint: (complaintData) => {
-        return API.post(COMPLAINTS, complaintData)
+        return API.post(COMPLAINTS_POST, complaintData)
             .then(res => res)
             .catch(error => {
                 console.error('Add Complaint Error:', error.response || error.message);
@@ -121,7 +122,7 @@ export const complaintApi = {
             });
     },
 
-      getComplaintsByStaff: async (staffId) => {
+    getComplaintsByStaff: async (staffId) => {
         try {
             return await API.get(COMPLAINTS_BY_STAFF(staffId));
         } catch (error) {
@@ -130,8 +131,6 @@ export const complaintApi = {
         }
     },
 };
-
-
 
 // -----------------Visitor -------------------
 export const visitorsApi = {
@@ -142,7 +141,8 @@ export const visitorsApi = {
                 console.error('Add Visitors Error:', error.response || error.message);
                 throw error;
             });
-    }, getVisitors: async () => {
+    },
+    getVisitors: async () => {
         try {
             const response = await API.get(VISITOR_GET);
             return response.data;
@@ -245,6 +245,7 @@ export const staffApi = {
             const res = await API.post(STAFF_POST, staffData, {
                 headers: {'Content-Type': 'application/json'},
             });
+            console.log("staff added: ",res.data)
             return res.data;
         } catch (error) {
             console.error('Add Staff Error :', error.response || error.message);
@@ -331,6 +332,6 @@ export const noticeApi = {
 
 
 // ---------------- ADMIN SIDE ----------------
-export const fetchComplaints = () => API.get(COMPLAINTS);
-export const updateStatus = (id, status) => API.patch(COMPLAINT_STATUS(id), {status});
+export const fetchComplaints = () => API.get(COMPLAINTS_GET);
+export const updateStatus = (id, status) => API.put(COMPLAINT_STATUS(id),  { status });
 export const fetchStats = () => API.get(STATS);

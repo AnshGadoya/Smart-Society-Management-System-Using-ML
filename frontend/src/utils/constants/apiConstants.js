@@ -22,7 +22,8 @@ export const VISITOR_GET = API_BASE_URL + "visitor/visitors";
 export const VISITOR_POST = API_BASE_URL + "visitor/visitors";
 
 // ---------------- ADMIN SIDE ----------------
-export const COMPLAINTS = API_BASE_URL + "complaint/";
+export const COMPLAINTS_GET = API_BASE_URL + "complaint/";
+export const COMPLAINTS_POST = API_BASE_URL + "complaint/";
 export const COMPLAINT_STATUS = (id) => API_BASE_URL + `complaint/${id}/status`;
 export const STATS = API_BASE_URL + "stats";
 export const COMPLAINTS_BY_STAFF = (staffId) => API_BASE_URL + `complaint/staff/${staffId}`;

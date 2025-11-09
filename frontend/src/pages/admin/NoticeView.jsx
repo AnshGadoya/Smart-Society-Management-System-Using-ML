@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { format, parseISO } from "date-fns";
 import NoticeForm from "../../components/Forms/NoticeForm";
 import { noticeApi } from "../../services/api";
+import PageHeader from "../../layout/PageHeader";
 
 function NoticeView() {
     const [notices, setNotices] = useState([]);
@@ -33,19 +34,14 @@ function NoticeView() {
 
     return (
         <div className="container mt-4">
-            <div className="d-flex justify-content-between align-items-center mb-3">
-                <h4>Notices</h4>
-                <button
-                    className="btn btn-success"
-                    onClick={() =>
-                        document
-                            .getElementById("noticeForm")
-                            .scrollIntoView({ behavior: "smooth" })
-                    }
-                >
-                    + New Notice
-                </button>
-            </div>
+            <PageHeader
+                PageTitle="Notice"
+                onButtonClick={() => document
+                    .getElementById("noticeForm")
+                    .scrollIntoView({behavior: "smooth"})
+                }
+                buttonLabel="+ Add Notice"
+            />
 
             {/* Notice Table */}
             <div className="table-responsive shadow rounded bg-white">

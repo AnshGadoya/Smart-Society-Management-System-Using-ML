@@ -221,17 +221,19 @@ function AdminDashboard() {
                         </div>
                     </div>
                 </div>
-                <BookingCalendar/>
+
+            </div>
+             <TrackComplaints/>
+             <BookingCalendar/>
                 {/*<AdminComplaints/>*/}
                 {/*<ComplaintCharts/>*/}
                 {/*<ValidateCode />*/}
                 <VisitorLogs visitors={visitors} columns={columns}/>
                 <UserProfile/>
                 <BudgetPlanning/>
-                <TrackComplaints/>
+
                 <ResolvedIssues/>
                 <UtilityForm/>
-            </div>
         </div>
     );
 }

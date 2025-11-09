@@ -35,8 +35,7 @@ training_data = [
     ("Cleanliness issue near garden area", "Utility"),
     ("Garbage dumped in parking area", "Utility"),
     ("Dustbin not cleaned regularly", "Utility"),
-    ("Gas Leakage","Utility"),
-    ("Water Leakage / Split","Utility"),
+
 
     # Maintenance
     ("Lift not working since yesterday", "Maintenance"),
@@ -47,6 +46,8 @@ training_data = [
     ("Light not working in corridor", "Maintenance"),
     ("Door lock needs repair", "Maintenance"),
     ("Wall paint peeling off", "Maintenance"),
+    ("Gas Leakage","Maintenance"),
+    ("Water Leakage / Split","Maintenance"),
 
     # Security
     ("Unauthorized person entered building", "Security"),
@@ -210,6 +211,22 @@ def addComplaint():
     except Exception as e:
         print("Error in addComplaint:", e)
         return jsonify({"error": str(e)}), 500
+
+
+@complaint.route('/<string:id>/status', methods=['PUT'])
+def update_complaint_status(id):
+    data = request.get_json()
+    new_status = data.get("status")
+
+    # Example logic:
+    complaint = Complaint.query.filter_by(complaint_id=id).first()
+    if not complaint:
+        return jsonify({"error": "Complaint not found"}), 404
+
+    complaint.status = new_status
+    db.session.commit()
+
+    return jsonify({"message": "Status updated", "complaint_id": id, "status": new_status}), 200
 
 
 
