@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 
-from models.Staff import Staff
+from models.StaffModel import Staff
 from datetime import datetime
 
 from utils.config import db

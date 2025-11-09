@@ -1,12 +1,15 @@
 import React, {useState, useEffect} from "react";
 import StaffForm from "../../components/Forms/StaffForm";
 import {staffApi} from "../../services/api";
+import AssignedComplaintsPage from "./AssignedComplaintsPage";
 
 
 function StaffManagementPage() {
     const [staffMembers, setStaffMembers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedStaffId, setSelectedStaffId] = useState(null); // 👈 store selected staff
+
 
     // Fetch staff data from backend
     useEffect(() => {
@@ -63,6 +66,7 @@ function StaffManagementPage() {
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Status</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -89,6 +93,14 @@ function StaffManagementPage() {
                                                 {staff.status}
                                             </span>
                                     </td>
+                                    <td>
+                                  <button
+                                    className="btn btn-outline-primary btn-sm"
+                                    onClick={() => setSelectedStaffId(staff.staff_id)} // 👈 set selected staff
+                                  >
+                                    View Complaints
+                                  </button>
+                                </td>
                                 </tr>
                             ))}
                             </tbody>
@@ -96,6 +108,14 @@ function StaffManagementPage() {
                     </div>
                 )}
             </div>
+
+            {/* Render complaints for selected staff */}
+          {selectedStaffId && (
+            <div className="mt-5">
+              <AssignedComplaintsPage staffId={selectedStaffId} />
+            </div>
+          )}
+
         </div>
     );
 }

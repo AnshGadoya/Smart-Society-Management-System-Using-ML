@@ -1,30 +1,35 @@
 import axios from 'axios';
 import {
+    BLOCK_DELETE,
+    BLOCK_GET,
+    BLOCK_POST,
+    BLOCK_UPDATE,
+    COMPLAINT_STATUS,
+    COMPLAINTS,
+    COMPLAINTS_BY_STAFF,
+    HOUSING_DELETE,
     HOUSING_GET,
     HOUSING_POST,
-    COMPLAINTS,
-    COMPLAINT_STATUS,
-    VISITOR_POST,
-    STATS,
-    VISITOR_GET,
-    BLOCK_POST,
-    BLOCK_GET,
-    BLOCK_UPDATE,
-    BLOCK_DELETE,
-    HOUSING_DELETE,
     HOUSING_UPDATE,
-    UTILITY_GET,
-    UTILITY_DELETE,
-    UTILITY_UPDATE,
-    UTILITY_POST,
-    MEMBER_POST,
-    MEMBER_GET,
-    MEMBER_UPDATE,
     MEMBER_DELETE,
-    STAFF_POST,
+    MEMBER_GET,
+    MEMBER_POST,
+    MEMBER_UPDATE,
+    NOTICE_DELETE,
+    NOTICE_GET,
+    NOTICE_POST,
+    NOTICE_UPDATE,
+    STAFF_DELETE,
     STAFF_GET,
+    STAFF_POST,
     STAFF_UPDATE,
-    STAFF_DELETE, NOTICE_GET, NOTICE_POST, NOTICE_UPDATE, NOTICE_DELETE,
+    STATS,
+    UTILITY_DELETE,
+    UTILITY_GET,
+    UTILITY_POST,
+    UTILITY_UPDATE,
+    VISITOR_GET,
+    VISITOR_POST,
 } from "../utils/constants/apiConstants";
 
 // axios instance with correct base URL
@@ -114,8 +119,18 @@ export const complaintApi = {
                 console.error('Add Complaint Error:', error.response || error.message);
                 throw error;
             });
-    }
+    },
+
+      getComplaintsByStaff: async (staffId) => {
+        try {
+            return await API.get(COMPLAINTS_BY_STAFF(staffId));
+        } catch (error) {
+            console.error('Get Complaints by Staff Error:', error.response || error.message);
+            throw error;
+        }
+    },
 };
+
 
 
 // -----------------Visitor -------------------

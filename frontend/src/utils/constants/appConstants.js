@@ -8,13 +8,15 @@ export const utilityTypes = [{type: "water", unit: "KL"}, {type: "electricity", 
 
 export const relationshipOptions = ["Owner", "Tenant", "Spouse", "Child", "Parent", "Relative", "Other"];
 
-export const departmentOptions = [{value: "", label: "Select Department"}, {
-    value: "security", label: "Security"
-}, {value: "maintenance", label: "Maintenance"}, {
-    value: "administration", label: "Administration"
-}, {value: "housekeeping", label: "Housekeeping"}, {value: "management", label: "Management"}, {
-    value: "other", label: "Other"
-}];
+export const departmentOptions = [
+    {value: "", label: "Select Department"},
+    {value: "security", label: "Security"},
+    {value: "maintenance", label: "Maintenance"},
+    {value: "administration", label: "Administration"},
+    {value: "housekeeping", label: "Housekeeping"},
+    {value: "management", label: "Management"},
+    {value: "other", label: "Other"}
+];
 
 export const positionOptions = {
     security: [{value: "", label: "Select Position"}, {
