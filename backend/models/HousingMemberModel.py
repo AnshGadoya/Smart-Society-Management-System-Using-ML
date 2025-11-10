@@ -22,3 +22,5 @@ class HousingMember(db.Model):
 
     unit_id = db.Column(db.Integer, db.ForeignKey("housing_units.id"), nullable=False)
     unit = db.relationship("HousingUnit", back_populates="members")
+    login = db.relationship("Login", back_populates="member", uselist=False)
+

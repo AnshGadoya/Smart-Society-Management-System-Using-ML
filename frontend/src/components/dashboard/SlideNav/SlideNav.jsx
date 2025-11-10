@@ -1,4 +1,4 @@
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import "./SlideNav.css"; // your custom CSS
 
@@ -16,6 +16,8 @@ import PATHS from "../../../utils/constants/Path";
 
 function SlideNav({role}) {
     const location = useLocation();
+    const navigate = useNavigate();
+
 
     const [collapsed, setCollapsed] = useState(
         () => JSON.parse(localStorage.getItem("SlideNav-collapsed")) || false
@@ -24,6 +26,20 @@ function SlideNav({role}) {
     useEffect(() => {
         localStorage.setItem("SlideNav-collapsed", JSON.stringify(collapsed));
     }, [collapsed]);
+
+    const handleLogout = () => {
+        // Clear all login info
+        localStorage.removeItem("userRole");
+        localStorage.removeItem("memberId");
+        sessionStorage.removeItem("userRole");
+        sessionStorage.removeItem("memberId");
+
+        // Optional: clear nav collapsed state if you want
+        // localStorage.removeItem("SlideNav-collapsed");
+
+        navigate("/"); // redirect to login page
+        window.location.reload();
+    };
 
     const menuItems = role === "admin"
         ? [
@@ -75,6 +91,12 @@ function SlideNav({role}) {
                         </Link>
                     </li>
                 ))}
+                <li className="menu-item logout" onClick={handleLogout} style={{cursor: "pointer"}}>
+                    <span className="icon">
+                        <i className="bi bi-box-arrow-right"></i>
+                    </span>
+                    {!collapsed && <span className="text">Logout</span>}
+                </li>
             </ul>
         </div>
     );

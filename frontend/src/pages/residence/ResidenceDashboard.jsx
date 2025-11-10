@@ -6,6 +6,8 @@ import StatsCard from "../../components/CardVIew/StatsCard";
 import SummaryCard from "../../components/CardVIew/SummaryCard";
 import AddComplaint from "./AddComplaints";
 import ComplaintForm from "../../components/Forms/ComplaintForm";
+import ValidateCode from "../../components/Visitor/ValidateCode";
+import VisitorManagement from "../../components/Visitor/VisitorManagement";
 function ResidenceDashboard() {
 
     return (
@@ -84,7 +86,10 @@ function ResidenceDashboard() {
 
                 </div>
 
+             <ValidateCode />
+             <VisitorManagement/>
              <AddComplaint/>
+
 
             </div>
     );

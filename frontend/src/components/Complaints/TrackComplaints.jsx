@@ -17,9 +17,7 @@ function TrackComplaints() {
                 } catch (err) {
                     console.error("Fetch Staff Error:", err);
                 }
-
             }
-
         getComplaints();
 
     }, []);

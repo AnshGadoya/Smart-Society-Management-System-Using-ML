@@ -34,6 +34,7 @@ import BookingPoliciesFAQ from "./components/Booking/BookingPoliciesFAQ";
 
 function App() {
     const [role, setRole] = useState(null); // 'admin' or 'resident'
+    const [loadingAuth, setLoadingAuth] = useState(true);
 
     const handleRoleSelect = (selectedRole) => {
         setRole(selectedRole);
@@ -41,6 +42,15 @@ function App() {
 
     useEffect(() => {
         Aos.init({duration: 1000});
+
+        const savedRole = localStorage.getItem("userRole") || sessionStorage.getItem("userRole");
+        const savedMemberId = localStorage.getItem("memberId") || sessionStorage.getItem("memberId");
+
+        if (savedRole && savedMemberId) {
+            setRole(savedRole); // auto-login
+        }
+
+        setLoadingAuth(false); // finished checking storage
     }, []);
 
     // const complaintData = [{
@@ -55,6 +65,14 @@ function App() {
     // }, {header: 'Actions', accessor: 'actions'}]
     // //
     const show404 = false;
+
+     if (loadingAuth) {
+        return (
+            <div className="text-center mt-5">
+                <h3>Loading...</h3>
+            </div>
+        ); // or a spinner
+    }
     return (
         <div className="App">
 
@@ -68,7 +86,9 @@ function App() {
                         </Routes>
                     </Router>
                 ) : !role ? (
-                    <Login onSelectRole={handleRoleSelect}/>
+                    <Routes>
+                         <Route path='/' element={<Login onSelectRole={handleRoleSelect}/>}/>
+                    </Routes>
                 ) : role === "admin" ?
 
                     (
@@ -103,7 +123,23 @@ function App() {
                                    element={<LayoutSlideNav role={role}><BookingPoliciesFAQ/></LayoutSlideNav>}/>
 
                         </Routes>
-                    ) : (
+                    ) : role === "guard" ?
+                        (
+                            <Routes>
+                            <Route path='/'
+                                   element={<LayoutSlideNav role={role}><ResidenceDashboard/></LayoutSlideNav>}/>
+                            <Route path={PATHS.FACILITY}
+                                   element={<LayoutSlideNav role={role}><FacilityResidence/></LayoutSlideNav>}/>
+                            <Route path={PATHS.PREREGISTER}
+                                   element={<LayoutSlideNav role={role}><PreRegister/></LayoutSlideNav>}/>
+                            <Route path={PATHS.COMPLAINT}
+                                   element={<LayoutSlideNav role={role}><AddComplaint/></LayoutSlideNav>}/>
+                        </Routes>
+                        )  :
+
+
+
+                    (
                         <Routes>
                             <Route path='/'
                                    element={<LayoutSlideNav role={role}><ResidenceDashboard/></LayoutSlideNav>}/>

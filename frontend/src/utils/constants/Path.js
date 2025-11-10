@@ -1,6 +1,6 @@
 const PATHS = {
     //Admin
-    DASHBOARD: "/dashboard",
+    ADMIN_DASHBOARD: "/a-dashboard",
     SERVICE: "/service",
     BLOCK: "/block",
     HOUSING: "/housing",
@@ -16,6 +16,7 @@ const PATHS = {
     FAQ: "/faq",
 
     //Residence
+    RESIDENCE_DASHBOARD: "/r-dashboard",
     FACILITY: "/facility",
     PREREGISTER: "/preregister",
     COMPLAINT: "/complaint",

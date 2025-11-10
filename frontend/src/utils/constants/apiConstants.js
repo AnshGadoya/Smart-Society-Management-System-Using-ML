@@ -28,6 +28,11 @@ export const COMPLAINT_STATUS = (id) => API_BASE_URL + `complaint/${id}/status`;
 export const STATS = API_BASE_URL + "stats";
 export const COMPLAINTS_BY_STAFF = (staffId) => API_BASE_URL + `complaint/staff/${staffId}`;
 
+//---------------------LOGIN-----------------------
+export const LOGIN_POST = API_BASE_URL + "login/";
+export const LOGIN_GET = API_BASE_URL + "login/";
+export const LOGIN_VERIFY = API_BASE_URL + "login/verify";
+
 
 // -------------------- member -------------------
 export const MEMBER_POST = API_BASE_URL + "member/";

@@ -97,3 +97,5 @@ def add_visitor():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 400
+
+

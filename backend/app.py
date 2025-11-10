@@ -1,7 +1,10 @@
 from flask import Flask
 from flask_cors import CORS
 from dotenv import load_dotenv
+from flask_migrate import Migrate
 
+from controllers.LoginController.adminLogin import seed_admin
+from controllers.LoginController.Login import login
 from controllers.HousingUnitControllers.HousingUnit import housing
 from controllers.BlockControllers.blocks import blocks
 from controllers.HousingUnitControllers.HousingMember import member
@@ -24,9 +27,13 @@ CORS(app)
 load_dotenv()
 init_app(app)
 
+migrate = Migrate(app, db)
+
+
 with app.app_context():
     # db.drop_all()
     db.create_all()
+    seed_admin()
 
 app.register_blueprint(blocks, url_prefix="/blocks")
 app.register_blueprint(housing, url_prefix='/housing')
@@ -39,6 +46,8 @@ app.register_blueprint(staff , url_prefix='/staff')
 app.register_blueprint(notices, url_prefix='/notices')
 
 app.register_blueprint(face_recog, url_prefix='/face')
+
+app.register_blueprint(login, url_prefix='/login')
 
 
 

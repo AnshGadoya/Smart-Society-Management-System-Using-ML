@@ -1,7 +1,7 @@
 // src/components/TableView/HousingMemberTable.jsx
 import React from "react";
 
-function HousingMemberTable({ members, onUpdate, onDelete }) {
+function HousingMemberTable({ members, onUpdate, onDelete,onCreateLogin }) {
     return (
         <div className="table-responsive mt-4">
             <table className="table table-striped">
@@ -32,8 +32,16 @@ function HousingMemberTable({ members, onUpdate, onDelete }) {
                             <td>{member.relationship}</td>
                             <td>{member.status}</td>
                             <td>{member.is_primary ? "Yes" : "No"}</td>
-                            <td>
+                            <td className="d-flex gap-2">
                                 <button className="btn btn-sm btn-danger" onClick={() => onDelete(member.id)}>Delete</button>
+                                {member.is_primary && (
+                                        <button
+                                            className="btn btn-sm btn-success"
+                                            onClick={() => onCreateLogin(member)}
+                                        >
+                                            Create Login
+                                        </button>
+                                    )}
                             </td>
                         </tr>
                     ))

@@ -12,6 +12,8 @@ import {
     HOUSING_GET,
     HOUSING_POST,
     HOUSING_UPDATE,
+    LOGIN_GET,
+    LOGIN_POST, LOGIN_VERIFY,
     MEMBER_DELETE,
     MEMBER_GET,
     MEMBER_POST,
@@ -197,6 +199,40 @@ export const utilityApi = {
             console.error('Delete Utility Error:', error.response || error.message);
             throw error;
         });
+    }
+};
+
+//--------------LOGIN SIDE-----------------
+export const loginApi = {
+    // Create or register login
+    createLogin: (loginData) => {
+        return API.post(LOGIN_POST, loginData, {
+            headers: { "Content-Type": "application/json" },
+        }).catch(error => {
+            console.error("Create Login Error:", error.response || error.message);
+            throw error;
+        });
+    },
+
+    verifyLogin: (loginData) => {
+        return API.post(LOGIN_VERIFY, loginData, {
+            headers: {"Content-Type": "application/json"},
+        }).catch(error => {
+            console.error("Verify Login Error:", error.response || error.message);
+            throw error;
+        });
+    },
+
+
+    // Get login details (optional)
+    getLogin: async () => {
+        try {
+            const response = await API.get(LOGIN_GET);
+            return response.data;
+        } catch (error) {
+            console.error("Get Login Error:", error.response || error.message);
+            throw error;
+        }
     }
 };
 
