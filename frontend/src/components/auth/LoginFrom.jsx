@@ -64,15 +64,22 @@ function LoginFrom({ onSelectRole }) {
 
             if (result.role && result.role === selectedRole) {
                 alert("Login successful!");
+
+                const residentData = { memberId: result.member_id };
+
                 if (rememberMe) {
                     // persist in localStorage
                     localStorage.setItem("userRole", result.role);
                     localStorage.setItem("memberId", result.member_id);
+                     localStorage.setItem("resident", JSON.stringify(residentData));
                 } else {
                     // sessionStorage will be cleared when browser closes
                     sessionStorage.setItem("userRole", result.role);
                     sessionStorage.setItem("memberId", result.member_id);
+                     sessionStorage.setItem("resident", JSON.stringify(residentData));
                 }
+
+                console.log("Stored userRole and memberId in storage.",result.member_id);
                 // ✅ Trigger parent role selection
                 onSelectRole(result.role);
             } else {

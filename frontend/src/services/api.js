@@ -30,9 +30,9 @@ import {
     UTILITY_DELETE,
     UTILITY_GET,
     UTILITY_POST,
-    UTILITY_UPDATE,
+    UTILITY_UPDATE, VISITOR_APPROVE, VISITOR_DECLINE,
     VISITOR_GET,
-    VISITOR_POST,
+    VISITOR_POST, VISITOR_VERIFY,
 } from "../utils/constants/apiConstants";
 
 // axios instance with correct base URL
@@ -152,16 +152,73 @@ export const visitorsApi = {
             console.error('Get Visitors Error:', error.response || error.message);
             throw error;
         }
-    }, verifyVisitor: (code) => {
-        return API.post(VISITOR_POST, code)
-            .then(res => res)
-            .catch(error => {
-                console.error('Visitors Error:', error.response || error.message);
-                throw error;
-            });
-    }
-}
+    },
+    verifyVisitor: async (code) => {
+        try {
+            const response = await API.post(VISITOR_VERIFY, {code});
+            return response.data;
+        } catch (error) {
+            console.error('Verify Visitor Error:', error.response || error.message);
+            throw error;
+        }
+    },
+    // ✅ New: Approve visitor
+    approveVisitor: async (visitorId) => {
+        try {
+            const response = await API.put(`${VISITOR_APPROVE}/${visitorId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Approve Visitor Error:', error.response || error.message);
+            throw error;
+        }
+    },
 
+    // ✅ New: Decline visitor
+    declineVisitor: async (visitorId) => {
+        try {
+            const response = await API.put(`${VISITOR_DECLINE}/${visitorId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Decline Visitor Error:', error.response || error.message);
+            throw error;
+        }
+    },
+    // ✅ Guard sends random visitor request
+    requestVisitor: async (visitorData) => {
+        try {
+            const response = await API.post("/visitor/request", visitorData);
+            return response.data;
+        } catch (error) {
+            console.error('Request Visitor Error:', error.response || error.message);
+            throw error;
+        }
+    },
+
+    // ✅ Resident gets pending visitors
+    getPendingVisitors: async (memberId) => {
+        try {
+            const response = await API.get(`/visitor/pending/${memberId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Get Pending Visitors Error:', error.response || error.message);
+            throw error;
+        }
+    },
+
+    // ✅ Guard checks visitor status after approval/decline
+    getVisitorStatus: async (visitorId) => {
+        try {
+            const response = await API.get(`/visitor/status/${visitorId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Get Visitor Status Error:', error.response || error.message);
+            throw error;
+        }
+    },
+};
+
+
+// -------------------- utility ------------------
 export const utilityApi = {
     addUtility: (utilityData) => {
         return API.post(UTILITY_POST, utilityData, {

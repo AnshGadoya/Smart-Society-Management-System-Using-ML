@@ -10,7 +10,7 @@ import {
     InfoCircle,
     Wrench,
     PersonFill,
-    List, Question,
+    List, Question, PersonVcardFill,
 } from "react-bootstrap-icons";
 import PATHS from "../../../utils/constants/Path";
 
@@ -31,9 +31,10 @@ function SlideNav({role}) {
         // Clear all login info
         localStorage.removeItem("userRole");
         localStorage.removeItem("memberId");
+        localStorage.removeItem("resident");
         sessionStorage.removeItem("userRole");
         sessionStorage.removeItem("memberId");
-
+        sessionStorage.removeItem("resident");
         // Optional: clear nav collapsed state if you want
         // localStorage.removeItem("SlideNav-collapsed");
 
@@ -56,11 +57,15 @@ function SlideNav({role}) {
             {title: "Face", icon: <PersonFill/>, path: PATHS.FACED},
             {title: "FAQ", icon: <Question/>, path: PATHS.FAQ},
         ]
-        : [
+        : role === "resident" ? [
             {title: "Dashboard", icon: <HouseDoor/>, path: "/"},
             {title: "Facilities", icon: <Building/>, path: PATHS.FACILITY},
             {title: "Pre Register", icon: <PersonFill/>, path: PATHS.PREREGISTER},
             {title: "Add Complaint", icon: <PersonFill/>, path: PATHS.COMPLAINT},
+        ] : [
+            {title: "Dashboard", icon: <HouseDoor/>, path: "/"},
+            {title: "Random Visitor Entry", icon: <PersonVcardFill/>, path: PATHS.VISITOR_FORM},
+            {title: "Visitor Logs", icon: <FileText/>, path: PATHS.VISITOR_LOGS},
         ];
 
 

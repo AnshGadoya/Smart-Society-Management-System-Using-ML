@@ -1,72 +1,74 @@
 import React from "react";
+import SparklineChart from "../Charts/SparklineChart";
 
 function InfoCard({
-                      title,
-                      count,
-                      change,
-                      changeColor = "success", // default color
-                      icon,
-                      period,
-                      bgImage = "assets/img/bg/bg-01.svg",
-                      iconBg = "primary", // default icon background color
-                  }) {
-    const bgShapeStyle = {
-        width: "100px",
-        opacity: 0.1,
-    };
+  title,
+  count,
+  change,
+  changeColor = "success",
+  icon = "bi-person",
+  period,
+  iconBg = "primary",
+    chartData = [],
+}) {
 
-    const iconStyle = {
-        width: "40px",
-        height: "40px",
-    };
+  return (
+    <div
+      className="card border-0 shadow-sm position-relative"
+      style={{
+        borderRadius: "16px",
+        background: "linear-gradient(135deg, #ffffff, #f3f9ff)",
+       overflow: "hidden",
+        minHeight: "150px",
 
-    const chartPlaceholderStyle = {
-        width: "80px",
-        height: "54px",
-        background: "rgba(0,0,0,0.05)",
-        borderRadius: "4px",
-    };
+      }}
+    >
+      <div className="card-body">
 
-    return (
-        <div className="card position-relative border rounded-2 shadow-sm">
-            {/* Background shape */}
-            <img
-                src={bgImage}
-                alt="bg"
-                className="position-absolute start-0 top-0"
-                style={bgShapeStyle}
-            />
-
-            <div className="card-body">
-                {/* Icon + Change Badge */}
-                <div className="d-flex align-items-center justify-content-between mb-2">
+        {/* Icon + Stats */}
+        <div className="d-flex justify-content-between">
           <span
-              className={`avatar bg-${iconBg} rounded-circle d-flex align-items-center justify-content-center`}
-              style={iconStyle}
+            className={`d-flex align-items-center justify-content-center rounded-circle `}
+            style={{
+              width: "42px",
+              height: "42px",
+              background:
+                iconBg === "info"
+                  ? "linear-gradient(135deg, #00c6ff, #0072ff)"
+                  : iconBg === "primary"
+                  ? "linear-gradient(135deg, #4e54c8, #8f94fb)"
+                  : "#0d6efd",
+              color: "white",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+            }}
           >
-            <i className={`bi ${icon} fs-5 text-white`}></i>
+            <i className={`bi ${icon} fs-5`}></i>
           </span>
-                    <div className="text-end">
-            <span
-                className={`badge bg-${changeColor} px-2 py-1 fw-medium mb-1`}
-            >
-              {change}
-            </span>
-                        <p className="mb-0 small text-muted">{period}</p>
-                    </div>
-                </div>
 
-                {/* Title + Count + Placeholder Chart */}
-                <div className="d-flex align-items-center justify-content-between">
-                    <div>
-                        <p className="mb-1">{title}</p>
-                        <h3 className="fw-bold mb-0">{count}</h3>
-                    </div>
-                    <div style={chartPlaceholderStyle}></div>
-                </div>
-            </div>
+          <div className="text-end">
+            {change && (
+              <span className={`badge bg-${changeColor} px-2 py-1 fw-medium mb-1`}>
+                {change}
+              </span>
+            )}
+            <p className="mb-0 small text-muted fw-bold">{period} </p>
+          </div>
         </div>
-    );
+
+        {/* Title + Count */}
+        <div className="text-center mb-4">
+          <p className="mb-1 text-muted">{title}</p>
+          <h3 className="fw-bold">{count}</h3>
+        </div>
+
+         {/* Sparkline Bottom Right */}
+        <div style={{ position: "absolute", bottom: "12px", right: "12px", width: "80px", height: "54px" }}>
+          <SparklineChart data={chartData} />
+        </div>
+
+      </div>
+    </div>
+  );
 }
 
 export default InfoCard;

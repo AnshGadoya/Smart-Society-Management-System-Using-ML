@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import {visitorsApi} from "../../services/api";
 
 function PreRegisterVisitorsWithCode() {
-    const [visitors, setVisitors] = useState([]);
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         phone: "",
         visitDate: "",
-        purpose: ""
+        purpose: "",
+        flatNo: ""
     });
 
     const handleChange = (e) => {
@@ -25,9 +25,6 @@ function PreRegisterVisitorsWithCode() {
         if (response?.data) {
             alert(response.data.status || "Visitor submitted");
         }
-
-        // const visitorWithCode = {...formData, code: generateCode()};
-        // setVisitors([...visitors, visitorWithCode]);
         setFormData({name: "", email: "", phone: "", visitDate: "", purpose: ""});
     };
 
@@ -90,6 +87,17 @@ function PreRegisterVisitorsWithCode() {
                                     name="purpose"
                                     value={formData.purpose}
                                     onChange={handleChange}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label>Flat Number*</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    name="flatNo"
+                                    value={formData.flatNo}
+                                    onChange={handleChange}
+                                    required
                                 />
                             </div>
 

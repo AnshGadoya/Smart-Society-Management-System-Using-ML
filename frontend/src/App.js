@@ -31,6 +31,9 @@ import HousingMemberManagement from "./pages/admin/HousingMemberManagement";
 import HousingBlockPage from "./pages/admin/BlockPage";
 import UtilityUsageView from "./pages/admin/UtilityUsageView";
 import BookingPoliciesFAQ from "./components/Booking/BookingPoliciesFAQ";
+import GuardDashboard from "./pages/guard/GuardDashboard";
+import VisitorTable from "./components/Visitor/VisitorTable";
+import VisitorApproval from "./pages/guard/VisitorApproval";
 
 function App() {
     const [role, setRole] = useState(null); // 'admin' or 'resident'
@@ -127,13 +130,11 @@ function App() {
                         (
                             <Routes>
                             <Route path='/'
-                                   element={<LayoutSlideNav role={role}><ResidenceDashboard/></LayoutSlideNav>}/>
-                            <Route path={PATHS.FACILITY}
-                                   element={<LayoutSlideNav role={role}><FacilityResidence/></LayoutSlideNav>}/>
-                            <Route path={PATHS.PREREGISTER}
-                                   element={<LayoutSlideNav role={role}><PreRegister/></LayoutSlideNav>}/>
-                            <Route path={PATHS.COMPLAINT}
-                                   element={<LayoutSlideNav role={role}><AddComplaint/></LayoutSlideNav>}/>
+                                   element={<LayoutSlideNav role={role}><GuardDashboard/></LayoutSlideNav>}/>
+                            <Route path={PATHS.VISITOR_FORM}
+                                   element={<LayoutSlideNav role={role}><VisitorApproval/></LayoutSlideNav>}/>
+                            <Route path={PATHS.VISITOR_LOGS}
+                                   element={<LayoutSlideNav role={role}><VisitorTable/></LayoutSlideNav>}/>
                         </Routes>
                         )  :
 

@@ -20,6 +20,10 @@ export const COMPLAINT_POST = API_BASE_URL + "complaints";
 //--------------- visitor ----------------
 export const VISITOR_GET = API_BASE_URL + "visitor/visitors";
 export const VISITOR_POST = API_BASE_URL + "visitor/visitors";
+export const VISITOR_VERIFY = API_BASE_URL + "visitor/verify";
+export const VISITOR_APPROVE = API_BASE_URL + "visitor/approve";
+export const VISITOR_DECLINE = API_BASE_URL + "visitor/decline";
+
 
 // ---------------- ADMIN SIDE ----------------
 export const COMPLAINTS_GET = API_BASE_URL + "complaint/";

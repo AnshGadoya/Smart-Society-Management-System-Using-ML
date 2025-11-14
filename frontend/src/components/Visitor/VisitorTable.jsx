@@ -53,6 +53,7 @@ function VisitorTable() {
                                     <th>Phone</th>
                                     <th>Visit Date</th>
                                     <th>Purpose</th>
+                                    <th>FlatNo.</th>
                                     <th>Access Code</th>
                                 </tr>
                                 </thead>
@@ -64,6 +65,7 @@ function VisitorTable() {
                                         <td>{visitor.phone || "N/A"}</td>
                                         <td>{new Date(visitor.visitDate).toLocaleDateString()}</td>
                                         <td>{visitor.purpose || "N/A"}</td>
+                                        <td>{visitor.flatNo}</td>
                                         <td>
                                                 <span className="badge bg-success fs-6">
                                                     {visitor.code}

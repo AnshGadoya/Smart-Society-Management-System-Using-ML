@@ -20,6 +20,12 @@ const PATHS = {
     FACILITY: "/facility",
     PREREGISTER: "/preregister",
     COMPLAINT: "/complaint",
+
+    //Guard
+    GUARD_DASHBOARD: "/g-dashboard",
+    VISITOR_FORM: "/guard-visitor-form",
+    VISITOR_LOGS: "/visitor-logs",
+
 }
 
 

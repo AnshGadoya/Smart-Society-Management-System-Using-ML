@@ -10,7 +10,10 @@ class Visitor(db.Model):
     phone = db.Column(db.String(20))
     visit_date = db.Column(db.String(20), nullable=False)
     purpose = db.Column(db.String(200))
+    flat_no = db.Column(db.String(20), nullable=False)
     code = db.Column(db.String(6), nullable=False, unique=True)
+    member_id = db.Column(db.String(50), db.ForeignKey("housing_members.member_id"), nullable=True)
+    status = db.Column(db.String(20), default="pending")  # pending, approved, declined
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def to_dict(self):
@@ -21,5 +24,8 @@ class Visitor(db.Model):
             'phone': self.phone,
             'visitDate': self.visit_date,
             'purpose': self.purpose,
-            'code': self.code
+            'flatNo': self.flat_no,
+            'member_id': self.member_id,
+            'code': self.code,
+            'status': self.status
         }
