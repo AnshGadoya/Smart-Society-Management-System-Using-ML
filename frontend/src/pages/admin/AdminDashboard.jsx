@@ -18,6 +18,10 @@ import ComplaintForm from "../../components/Forms/ComplaintForm";
 import AdminComplaints from "./ComplaintView";
 import ComplaintCharts from "../../components/Complaints/ComplaintsChart";
 import UtilityForm from "../../components/Forms/UtilityForm";
+import {fetchComplaints, memberApi, visitorsApi} from "../../services/api";
+import {calculatePercentage, getLast7DaysSpark} from "../../utils/generateWeeklyStats";
+import {useEffect, useState} from "react";
+import {Speedometer2, HouseDoor, Megaphone, PlusCircle, InfoCircle, Buildings} from "react-bootstrap-icons";
 
 function AdminDashboard() {
     const transactions = [
@@ -120,6 +124,68 @@ function AdminDashboard() {
         }
     ];
 
+    const [loading, setLoading] = useState(true);
+
+
+
+     const [dashboard, setDashboard] = useState({
+        residents: {count: 0, spark: [], change: 0, color: "secondary"},
+        complaints: {count: 0, spark: [], change: 0, color: "secondary"},
+        visitors: {count: 0, spark: [], change: 0, color: "secondary"},
+    });
+
+      useEffect(() => {
+        loadDashboard();
+    }, []);
+
+
+    const loadDashboard = async () => {
+        try {
+            // RESIDENTS
+            const residents = await memberApi.getMembers();
+            const residentSpark = getLast7DaysSpark(residents, "createdAt");
+            const resPercent = calculatePercentage(residentSpark);
+
+            // COMPLAINTS
+            const complaintsRes = await fetchComplaints();
+            const complaints = complaintsRes.data;
+            const complaintSpark = getLast7DaysSpark(complaints, "createdAt");
+            const compPercent = calculatePercentage(complaintSpark);
+
+            // VISITORS
+            const visitors = await visitorsApi.getVisitors();
+            const visitorSpark = getLast7DaysSpark(visitors, "visitDate");
+            const visPercent = calculatePercentage(visitorSpark);
+
+            setDashboard({
+                residents: {
+                    count: residents.length,
+                    spark: residentSpark,
+                    change: resPercent.value,
+                    color: resPercent.color,
+                },
+                complaints: {
+                    count: complaints.length,
+                    spark: complaintSpark,
+                    change: compPercent.value,
+                    color: compPercent.color,
+                },
+                visitors: {
+                    count: visitors.length,
+                    spark: visitorSpark,
+                    change: visPercent.value,
+                    color: visPercent.color,
+                },
+            });
+        } catch (error) {
+            console.log("Dashboard Load Error:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (loading || !dashboard) return <p>Loading dashboard...</p>;
+
     return (
 
         <div className="container mt-4">
@@ -128,82 +194,113 @@ function AdminDashboard() {
 
 
             {/* Top Stats */}
-            <div className="row g-4 mt-2">
-                <div className="col-md-3 col-6">
+             <div className="row g-4 mt-2">
+
+                {/* RESIDENTS */}
+                <div className="col-md-4 col-6">
                     <InfoCard
-                        title="Residents"
-                        count={245}
-                        change="+12%"
-                        changeColor="success"
+                        title="Total Residents"
+                        count={dashboard.residents.count}
+                        change={dashboard.residents.change === "NEW" ? "NEW" : dashboard.residents.change + "%"}
+                        changeColor={dashboard.residents.color}
                         icon="bi-people"
-                        period="in last 7 days"
+                        period="Last 7 days"
+                        iconBg="primary"
+                        chartData={dashboard.residents.spark}
                     />
                 </div>
-                <div className="col-md-3 col-6">
+
+                {/* COMPLAINTS */}
+                <div className="col-md-4 col-6">
                     <InfoCard
                         title="Complaints"
-                        count={68}
-                        change="-5%"
-                        changeColor="danger"
+                        count={dashboard.complaints.count}
+                        change={dashboard.complaints.change === "NEW" ? "NEW" : dashboard.complaints.change + "%"}
+                        changeColor={dashboard.complaints.color}
                         icon="bi-exclamation-circle"
-                        period="this week"
+                        period="Last 7 days"
+                        iconBg="danger"
+                        chartData={dashboard.complaints.spark}
                     />
                 </div>
-                <div className="col-md-3 col-6">
+
+                {/*/!* VISITORS *!/*/}
+                <div className="col-md-4 col-6">
                     <InfoCard
                         title="Visitors"
-                        count={134}
-                        change="+20%"
-                        changeColor="success"
+                        count={dashboard.visitors.count}
+                        change={dashboard.visitors.change === "NEW" ? "NEW" : dashboard.visitors.change + "%"}
+                        changeColor={dashboard.visitors.color}
                         icon="bi-person-badge"
-                        period="today"
+                        period="Last 7 days"
+                        iconBg="info"
+                        chartData={dashboard.visitors.spark}
                     />
                 </div>
-                <div className="col-md-3 col-6">
-                    <InfoCard
-                        title="Payments"
-                        count={"₹56,000"}
-                        change="+10%"
-                        changeColor="success"
-                        icon="bi-currency-rupee"
-                        period="this month"
-                    />
-                </div>
+
             </div>
 
             {/* Quick Access Cards */}
-            <div className="row g-4 mt-4">
-                <div className="col-6 col-md-2">
-                    <CardView title="Dashboard" description="Overview" click="/dashboard"/>
+            <div className="row row-cols-2 row-cols-sm-3 row-cols-md-5 g-4 mt-2">
+
+                <div>
+                    <CardView
+                        title="Dashboard"
+                        description="Quick overview of society stats"
+                        click="/dashboard"
+                        Icon={Speedometer2}
+                    />
                 </div>
-                <div className="col-6 col-md-2">
-                    <CardView title="Service" description="Requests" click="/service"/>
+
+                <div>
+                    <CardView
+                        title="Housing"
+                        description="Manage all houses & members"
+                        click={PATHS.HOUSING}
+                        Icon={HouseDoor}
+                    />
                 </div>
-                <div className="col-6 col-md-2">
-                    <CardView title="Housing" description="Houses" click={PATHS.HOUSING}/>
+
+                <div>
+                    <CardView
+                        title="Notices"
+                        description="Publish and manage notices"
+                        click={PATHS.NOTICE}
+                        Icon={Megaphone}
+                    />
                 </div>
-                <div className="col-6 col-md-2">
-                    <CardView title="Notice" description="Notices" click={PATHS.NOTICE}/>
+
+                <div>
+                    <CardView
+                        title="Amenities"
+                        description="Add or edit society amenities"
+                        click={PATHS.FACILITY}
+                        Icon={Buildings}
+                    />
                 </div>
-                <div className="col-6 col-md-2">
-                    <CardView title=" Add Amenities" description="Amenities" click={PATHS.FACILITY}/>
+
+                <div>
+                    <CardView
+                        title="About"
+                        description="Information about the society"
+                        click="/about"
+                        Icon={InfoCircle}
+                    />
                 </div>
-                <div className="col-6 col-md-2">
-                    <CardView title="About" description="About Us" click="/about"/>
-                </div>
-                <StatsCard title={"incone"} trendPercentage={2.3} trendPositive={true} trendText={"9 month after"}/>
-                <SummaryCard title={"unit"} trendPercentage={2.3} trendPositive={true} progressValue={80}/>
+
             </div>
+
+
 
             {/* Transactions Section */}
             <div className="row mt-5">
-                <div className="col-lg-8">
-                    <RecentTransactions
-                        title="Recent Transactions"
-                        periodOptions={["Weekly", "Monthly", "Yearly"]}
-                        transactions={transactions}
-                    />
-                </div>
+                {/*<div className="col-lg-8">*/}
+                {/*    <RecentTransactions*/}
+                {/*        title="Recent Transactions"*/}
+                {/*        periodOptions={["Weekly", "Monthly", "Yearly"]}*/}
+                {/*        transactions={transactions}*/}
+                {/*    />*/}
+                {/*</div>*/}
 
                 {/* Example chart placeholder */}
                 <div className="col-lg-4">
@@ -225,16 +322,16 @@ function AdminDashboard() {
             </div>
 
              <TrackComplaints/>
-             <BookingCalendar/>
+             {/*<BookingCalendar/>*/}
                 {/*<AdminComplaints/>*/}
                 {/*<ComplaintCharts/>*/}
                 {/*<ValidateCode />*/}
-                <VisitorLogs visitors={visitors} columns={columns}/>
-                <UserProfile/>
-                <BudgetPlanning/>
+                {/*<VisitorLogs visitors={visitors} columns={columns}/>*/}
+                {/*<UserProfile/>*/}
+                {/*<BudgetPlanning/>*/}
 
-                <ResolvedIssues/>
-                <UtilityForm/>
+                {/*<ResolvedIssues/>*/}
+                {/*<UtilityForm/>*/}
         </div>
     );
 }

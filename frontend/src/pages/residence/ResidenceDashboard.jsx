@@ -12,6 +12,8 @@ import ResidentVisitorApproval from "./ResidentVisitorApproval";
 import {useEffect, useMemo, useState} from "react";
 import {fetchComplaints, memberApi, visitorsApi} from "../../services/api";
 import {calculatePercentage,  getLast7DaysSpark} from "../../utils/generateWeeklyStats";
+import {Speedometer2, Buildings, PersonCheck, ExclamationTriangle, PersonPlus} from "react-bootstrap-icons";
+
 
 
 function ResidenceDashboard() {
@@ -83,10 +85,7 @@ function ResidenceDashboard() {
     };
 
 
-    const residentSparkMemo = useMemo(
-        () => dashboard.residents.spark,
-        [dashboard.residents.spark]
-    );
+    if (loading || !dashboard) return <p>Loading dashboard...</p>;
 
     return (
 
@@ -108,7 +107,7 @@ function ResidenceDashboard() {
                         icon="bi-people"
                         period="Last 7 days"
                         iconBg="primary"
-                        chartData={residentSparkMemo}
+                        chartData={dashboard.residents.spark}
                     />
                 </div>
 
@@ -143,29 +142,25 @@ function ResidenceDashboard() {
             </div>
 
             {/* Quick Access Cards */}
-            <div className="row g-4 mt-4">
-                <div className="col-6 col-md-2">
-                    <CardView title="Dashboard" description="Overview" click="/dashboard"/>
+            <div className="row g-4 mt-2">
+                <div className="col-12 col-sm-6 col-md-3">
+                    <CardView title="Dashboard" description="Quick overview..." Icon={Speedometer2}/>
                 </div>
-                <div className="col-6 col-md-2">
-                    <CardView title="Service" description="Requests" click="/service"/>
-                </div>
-                <div className="col-6 col-md-2">
-                    <CardView title="Housing" description="Houses" click={PATHS.HOUSING}/>
-                </div>
-                <div className="col-6 col-md-2">
-                    <CardView title="Notice" description="Notices" click={PATHS.NOTICE}/>
-                </div>
-                <div className="col-6 col-md-2">
-                    <CardView title=" Add Amenities" description="Amenities" click={PATHS.FACILITY}/>
-                </div>
-                <div className="col-6 col-md-2">
-                    <CardView title="About" description="About Us" click="/about"/>
-                </div>
-                {/*<StatsCard title={"incone"} trendPercentage={2.3} trendPositive={true} trendText={"9 month after"}/>*/}
-                {/*<SummaryCard title={"unit"} trendPercentage={2.3} trendPositive={true}  progressValue={80}/>*/}
 
+                <div className="col-12 col-sm-6 col-md-3">
+                    <CardView title="Facilities" description="Manage facilities" Icon={Buildings}/>
+                </div>
+
+                <div className="col-12 col-sm-6 col-md-3">
+                    <CardView title="Pre-Register" description="Guest entry" Icon={PersonPlus}/>
+                </div>
+
+                <div className="col-12 col-sm-6 col-md-3">
+                    <CardView title="Add Complaint" description="Track complaints" Icon={ExclamationTriangle}/>
+                </div>
             </div>
+
+
 
 
             {memberId ? (
