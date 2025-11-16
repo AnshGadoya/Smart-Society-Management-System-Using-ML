@@ -45,7 +45,7 @@ app.register_blueprint(member , url_prefix='/member')
 app.register_blueprint(staff , url_prefix='/staff')
 app.register_blueprint(notices, url_prefix='/notices')
 
-app.register_blueprint(face_recog, url_prefix='/face')
+app.register_blueprint(face_recog, url_prefix='/faceVisitor')
 
 app.register_blueprint(login, url_prefix='/login')
 
