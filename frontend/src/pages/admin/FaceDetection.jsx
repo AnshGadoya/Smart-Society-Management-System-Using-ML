@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import Webcam from "react-webcam";
-import axios from "axios";
+import {faceVisitorApi} from "../../services/api";
 
 const FaceVisitorUI = () => {
   const webcamRef = useRef(null);
@@ -12,8 +12,11 @@ const FaceVisitorUI = () => {
   // Backup code login
   const [backupCode, setBackupCode] = useState("");
 
-  // Message display
+  // Response message
   const [message, setMessage] = useState("");
+
+  // Recognized visitor info
+  const [visitorInfo, setVisitorInfo] = useState(null);
 
   // Capture image
   const captureImage = () => webcamRef.current.getScreenshot();
@@ -30,17 +33,15 @@ const FaceVisitorUI = () => {
     const imageSrc = captureImage();
 
     try {
-      const res = await axios.post("http://127.0.0.1:5000/faceVisitor/register", {
+      const data = await faceVisitorApi.registerVisitor({
         name,
         work_type: workType,
         image: imageSrc,
       });
 
-      setMessage(
-        `Registration successful. Visitor Code: ${res.data.backup_code}`
-      );
-
-      setBackupCode(res.data.backup_code);
+      setMessage(`Registration successful. Visitor Code: ${data.backup_code}`);
+      setBackupCode(data.backup_code);
+      setVisitorInfo(null); // clear any previous info
     } catch (err) {
       setMessage(err.response?.data?.message || "Registration error");
     }
@@ -53,13 +54,19 @@ const FaceVisitorUI = () => {
     const imageSrc = captureImage();
 
     try {
-      const res = await axios.post("http://127.0.0.1:5000/faceVisitor/recognize", {
-        image: imageSrc,
-      });
+      const data = await faceVisitorApi.recognizeVisitor(imageSrc);
 
-      setMessage(res.data.message);
+      setMessage(data.message);
+      setVisitorInfo({
+        visitor_id: data.visitor_id,
+        name: data.name,
+        work_type: data.work_type || "-",
+        last_seen: new Date().toLocaleString(),
+        similarity: data.similarity?.toFixed(3),
+      });
     } catch (err) {
       setMessage(err.response?.data?.message || "Recognition error");
+      setVisitorInfo(null);
     }
   };
 
@@ -73,13 +80,18 @@ const FaceVisitorUI = () => {
     }
 
     try {
-      const res = await axios.post("http://127.0.0.1:5000/faceVisitor/verify_code", {
-        backup_code: backupCode,
-      });
+      const data = await faceVisitorApi.verifyBackupCode(backupCode);
 
-      setMessage(res.data.message);
+      setMessage(data.message);
+      setVisitorInfo({
+        visitor_id: data.visitor_id,
+        name: data.name,
+        work_type: data.work_type || "-",
+        last_seen: new Date().toLocaleString(),
+      });
     } catch (err) {
       setMessage(err.response?.data?.message || "Invalid backup code");
+      setVisitorInfo(null);
     }
   };
 
@@ -103,15 +115,17 @@ const FaceVisitorUI = () => {
           placeholder="Visitor Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-        /><br/><br/>
-
+        />
+        <br />
+        <br />
         <input
           type="text"
           placeholder="Work Type (Milkman, Paperboy etc)"
           value={workType}
           onChange={(e) => setWorkType(e.target.value)}
-        /><br/><br/>
-
+        />
+        <br />
+        <br />
         <button onClick={registerVisitor}>Register Face</button>
       </div>
 
@@ -133,13 +147,50 @@ const FaceVisitorUI = () => {
         value={backupCode}
         onChange={(e) => setBackupCode(e.target.value)}
       />
-      <br/><br/>
+      <br />
+      <br />
       <button onClick={verifyByCode}>Verify Code</button>
 
       {/* RESPONSE MESSAGE */}
       <p style={{ marginTop: 20, fontSize: "18px", fontWeight: "bold" }}>
         {message}
       </p>
+
+      {/* VISITOR INFO DISPLAY */}
+      {visitorInfo && (
+        <div
+          style={{
+            marginTop: 20,
+            border: "1px solid #ccc",
+            padding: 15,
+            display: "inline-block",
+            textAlign: "left",
+            borderRadius: 8,
+            backgroundColor: "#f9f9f9",
+          }}
+        >
+          <h4>Visitor Info</h4>
+          <p>
+            <strong>ID:</strong> {visitorInfo.visitor_id}
+          </p>
+          <p>
+            <strong>Name:</strong> {visitorInfo.name}
+          </p>
+          <p>
+            <strong>Work Type:</strong> {visitorInfo.work_type}
+          </p>
+          {visitorInfo.last_seen && (
+            <p>
+              <strong>Last Seen:</strong> {visitorInfo.last_seen}
+            </p>
+          )}
+          {visitorInfo.similarity && (
+            <p>
+              <strong>Similarity:</strong> {visitorInfo.similarity}
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 };

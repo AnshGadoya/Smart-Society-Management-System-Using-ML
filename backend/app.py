@@ -13,7 +13,7 @@ from controllers.NoticeController.NoticeController import notices
 from controllers.StaffController.StaffController import staff
 from controllers.VisitorControllers.PreRegisterVisitors import visitor
 from controllers.ComplaintControllers.addComplaint import complaint
-from controllers.FaceRecognitionController.face_recognition import face_recog
+from controllers.FaceRecognitionController.face_recognition import face_recog, refresh_cache
 from utils.config import init_app, db
 from flask import Flask, request, jsonify
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -31,6 +31,7 @@ migrate = Migrate(app, db)
 
 
 with app.app_context():
+    refresh_cache()
     # db.drop_all()
     db.create_all()
     seed_admin()

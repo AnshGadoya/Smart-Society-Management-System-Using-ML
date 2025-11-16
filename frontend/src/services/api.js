@@ -218,6 +218,40 @@ export const visitorsApi = {
 };
 
 
+//-------------Face Visitor------------------
+export const faceVisitorApi = {
+  registerVisitor: async ({ name, work_type, image }) => {
+    try {
+      const res = await API.post("/faceVisitor/register", { name, work_type, image });
+      return res.data;
+    } catch (error) {
+      console.error("Register Visitor Error:", error.response || error.message);
+      throw error;
+    }
+  },
+
+  recognizeVisitor: async (image) => {
+    try {
+      const res = await API.post("/faceVisitor/recognize", { image });
+      return res.data;
+    } catch (error) {
+      console.error("Recognize Visitor Error:", error.response || error.message);
+      throw error;
+    }
+  },
+
+  verifyBackupCode: async (backup_code) => {
+    try {
+      const res = await API.post("/faceVisitor/verify_code", { backup_code });
+      return res.data;
+    } catch (error) {
+      console.error("Verify Backup Code Error:", error.response || error.message);
+      throw error;
+    }
+  },
+};
+
+
 // -------------------- utility ------------------
 export const utilityApi = {
     addUtility: (utilityData) => {

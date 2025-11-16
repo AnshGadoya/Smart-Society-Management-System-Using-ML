@@ -1,6 +1,9 @@
 import os
 
 from flask_sqlalchemy import SQLAlchemy
+import pymysql
+pymysql.install_as_MySQLdb()  # <- add this here, before db.init_app
+
 
 # Initialize SQLAlchemy
 db = SQLAlchemy()
