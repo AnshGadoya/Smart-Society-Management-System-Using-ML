@@ -24,6 +24,8 @@ const PATHS = {
     //Guard
     GUARD_DASHBOARD: "/g-dashboard",
     VISITOR_FORM: "/guard-visitor-form",
+    FACE_REGISTRATION: "/face-registration",
+    FACE_ENTRY: "/face-entry",
     VISITOR_LOGS: "/visitor-logs",
 
 }

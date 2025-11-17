@@ -10,7 +10,7 @@ import {
     InfoCircle,
     Wrench,
     PersonFill,
-    List, Question, PersonVcardFill,
+    List, Question, PersonVcardFill,PersonPlus ,PersonCheck
 } from "react-bootstrap-icons";
 import PATHS from "../../../utils/constants/Path";
 
@@ -65,6 +65,8 @@ function SlideNav({role}) {
         ] : [
             {title: "Dashboard", icon: <HouseDoor/>, path: "/"},
             {title: "Random Visitor Entry", icon: <PersonVcardFill/>, path: PATHS.VISITOR_FORM},
+            {title: "Face Registration", icon: <PersonPlus/>, path: PATHS.FACE_REGISTRATION},
+            {title: "Face Entry", icon: <PersonCheck/>, path: PATHS.FACE_ENTRY},
             {title: "Visitor Logs", icon: <FileText/>, path: PATHS.VISITOR_LOGS},
         ];
 

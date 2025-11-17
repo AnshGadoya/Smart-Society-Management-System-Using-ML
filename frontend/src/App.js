@@ -34,6 +34,8 @@ import BookingPoliciesFAQ from "./components/Booking/BookingPoliciesFAQ";
 import GuardDashboard from "./pages/guard/GuardDashboard";
 import VisitorTable from "./components/Visitor/VisitorTable";
 import VisitorApproval from "./pages/guard/VisitorApproval";
+import VisitorFaceRegistration from "./pages/guard/FaceDetection/VisitorFaceRegistration";
+import VisitorFaceEntry from "./pages/guard/FaceDetection/VisitorFaceEntry";
 
 function App() {
     const [role, setRole] = useState(null); // 'admin' or 'resident'
@@ -90,10 +92,9 @@ function App() {
                     </Router>
                 ) : !role ? (
                     <Routes>
-                         <Route path='/' element={<Login onSelectRole={handleRoleSelect}/>}/>
+                        <Route path='/' element={<Login onSelectRole={handleRoleSelect}/>}/>
                     </Routes>
                 ) : role === "admin" ?
-
                     (
                         <Routes>
                             <Route path='/' element={<LayoutSlideNav role={role}><AdminDashboard/></LayoutSlideNav>}/>
@@ -129,29 +130,31 @@ function App() {
                     ) : role === "guard" ?
                         (
                             <Routes>
-                            <Route path='/'
-                                   element={<LayoutSlideNav role={role}><GuardDashboard/></LayoutSlideNav>}/>
-                            <Route path={PATHS.VISITOR_FORM}
-                                   element={<LayoutSlideNav role={role}><VisitorApproval/></LayoutSlideNav>}/>
-                            <Route path={PATHS.VISITOR_LOGS}
-                                   element={<LayoutSlideNav role={role}><VisitorTable/></LayoutSlideNav>}/>
-                        </Routes>
-                        )  :
-
-
-
-                    (
-                        <Routes>
-                            <Route path='/'
-                                   element={<LayoutSlideNav role={role}><ResidenceDashboard/></LayoutSlideNav>}/>
-                            <Route path={PATHS.FACILITY}
-                                   element={<LayoutSlideNav role={role}><FacilityResidence/></LayoutSlideNav>}/>
-                            <Route path={PATHS.PREREGISTER}
-                                   element={<LayoutSlideNav role={role}><PreRegister/></LayoutSlideNav>}/>
-                            <Route path={PATHS.COMPLAINT}
-                                   element={<LayoutSlideNav role={role}><AddComplaint/></LayoutSlideNav>}/>
-                        </Routes>
-                    )}
+                                <Route path='/'
+                                       element={<LayoutSlideNav role={role}><GuardDashboard/></LayoutSlideNav>}/>
+                                <Route path={PATHS.VISITOR_FORM}
+                                       element={<LayoutSlideNav role={role}><VisitorApproval/></LayoutSlideNav>}/>
+                                <Route path={PATHS.FACE_REGISTRATION}
+                                       element={<LayoutSlideNav role={role}><VisitorFaceRegistration/></LayoutSlideNav>}/>
+                                <Route path={PATHS.FACE_ENTRY}
+                                       element={<LayoutSlideNav role={role}><VisitorFaceEntry/></LayoutSlideNav>}/>
+                                <Route path={PATHS.VISITOR_LOGS}
+                                       element={<LayoutSlideNav role={role}><VisitorTable/></LayoutSlideNav>}/>
+                            </Routes>
+                        ) :
+                        (
+                            <Routes>
+                                <Route path='/'
+                                       element={<LayoutSlideNav role={role}><ResidenceDashboard/></LayoutSlideNav>}/>
+                                <Route path={PATHS.FACILITY}
+                                       element={<LayoutSlideNav role={role}><FacilityResidence/></LayoutSlideNav>}/>
+                                <Route path={PATHS.PREREGISTER}
+                                       element={<LayoutSlideNav role={role}><PreRegister/></LayoutSlideNav>}/>
+                                <Route path={PATHS.COMPLAINT}
+                                       element={<LayoutSlideNav role={role}><AddComplaint/></LayoutSlideNav>}/>
+                            </Routes>
+                        )
+                }
             </Router>
             {/*// <ComplaintForm/>*/}
             {/*//   <HousingTable columns={columns} data={complaintData}/>*/}

@@ -67,7 +67,7 @@ def get_deepface_embedding(img):
 
         result = DeepFace.represent(
             img,
-            model_name="ArcFace",  # change model to ArcFace if desired
+            model_name="ArcFace", #Model Name
             detector_backend="opencv",
             enforce_detection=True
         )
