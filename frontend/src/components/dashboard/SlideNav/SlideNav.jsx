@@ -52,7 +52,7 @@ function SlideNav({role}) {
             {title: "Staff Management", icon: <People/>, path: PATHS.STAFF},
             {title: "Housing Members", icon: <People/>, path: PATHS.HOUSING_MEMBERS},
             {title: "Amenities", icon: <Building/>, path: PATHS.ADDFACILITY},
-            {title: "Service", icon: <Wrench/>, path: PATHS.SERVICE},
+            // {title: "Service", icon: <Wrench/>, path: PATHS.SERVICE},
             {title: "About", icon: <InfoCircle/>, path: PATHS.ABOUT},
             {title: "Face", icon: <PersonFill/>, path: PATHS.FACED},
             {title: "FAQ", icon: <Question/>, path: PATHS.FAQ},

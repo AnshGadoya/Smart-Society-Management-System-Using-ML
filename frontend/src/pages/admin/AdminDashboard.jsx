@@ -303,21 +303,21 @@ function AdminDashboard() {
                 {/*</div>*/}
 
                 {/* Example chart placeholder */}
-                <div className="col-lg-4">
-                    <div className="card shadow-sm border-0 rounded-3">
-                        <div className="card-header bg-white fw-bold">
-                            Usage Overview
-                        </div>
-                        <div className="card-body text-center">
-                            <img
-                                src="/chart-placeholder.png"
-                                alt="Chart"
-                                className="img-fluid"
-                            />
-                            <p className="text-muted mt-2">Water & Electricity Usage</p>
-                        </div>
-                    </div>
-                </div>
+                {/*<div className="col-lg-4">*/}
+                {/*    <div className="card shadow-sm border-0 rounded-3">*/}
+                {/*        <div className="card-header bg-white fw-bold">*/}
+                {/*            Usage Overview*/}
+                {/*        </div>*/}
+                {/*        <div className="card-body text-center">*/}
+                {/*            <img*/}
+                {/*                src="/chart-placeholder.png"*/}
+                {/*                alt="Chart"*/}
+                {/*                className="img-fluid"*/}
+                {/*            />*/}
+                {/*            <p className="text-muted mt-2">Water & Electricity Usage</p>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
             </div>
 

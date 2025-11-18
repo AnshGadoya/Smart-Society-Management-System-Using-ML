@@ -18,55 +18,117 @@ complaint = Blueprint('complaint', __name__)
 # -------------------------------
 training_data = [
     # Utility
-    ("Garbage not collected from my flat", "Utility"),
-    ("Water supply is not coming since morning", "Utility"),
-    ("Drainage issue in basement area", "Utility"),
-    ("Dustbin overflow near building", "Utility"),
-    ("Street lights not working properly", "Utility"),
-    ("Cleanliness issue near garden area", "Utility"),
-    ("Garbage dumped in parking area", "Utility"),
-    ("Dustbin not cleaned regularly", "Utility"),
-
+    ("Garbage not collected from society bins", "Utility"),
+    ("Dustbin overflow near main gate", "Utility"),
+    ("Public garden needs cleaning", "Utility"),
+    ("Drainage blockage in basement area", "Utility"),
+    ("Street lights not working in internal roads", "Utility"),
+    ("Common water supply disrupted in society", "Utility"),
+    ("Water tank needs cleaning", "Utility"),
+    ("Garbage dumping happening near parking area", "Utility"),
+    ("Common area washroom not cleaned", "Utility"),
+    ("Sewer smell near society entrance", "Utility"),
+    ("Street light flickering outside community hall", "Utility"),
+    ("Road inside society needs proper sweeping", "Utility"),
+    ("Garbage truck did not arrive today", "Utility"),
+    ("Basement drainage overflowing", "Utility"),
+    ("Drinking water station empty", "Utility"),
+    ("Outdoor lights not switched on at night", "Utility"),
+    ("Water pipeline leakage in garden area", "Utility"),
+    ("Rainwater drainage blocked in common area", "Utility"),
+    ("Dustbin area stinking badly", "Utility"),
+    ("Common garden dustbin missing", "Utility"),
+    ("Society road area very dusty", "Utility"),
+    ("Street sweeping not done today", "Utility"),
+    ("Sewage water collecting near play area", "Utility"),
+    ("Common water motor not turned on", "Utility"),
+    ("Water pressure low in society taps", "Utility"),
+    ("Street light pole fallen inside society", "Utility"),
+    ("Garbage segregation not done properly", "Utility"),
+    ("Basement water accumulation", "Utility"),
+    ("Roadside drainage damaged inside society", "Utility"),
+    ("Fogging/sanitisation not done in society", "Utility"),
 
     # Maintenance
-    ("Lift not working since yesterday", "Maintenance"),
-    ("Tap leakage in bathroom", "Maintenance"),
-    ("Plumbing repair needed", "Maintenance"),
-    ("AC needs repairing in clubhouse", "Maintenance"),
-    ("Fan is broken and needs maintenance", "Maintenance"),
-    ("Light not working in corridor", "Maintenance"),
-    ("Door lock needs repair", "Maintenance"),
-    ("Wall paint peeling off", "Maintenance"),
-    ("Gas Leakage","Maintenance"),
-    ("Water Leakage / Split","Maintenance"),
+    ("Lift in Tower A not working", "Maintenance"),
+    ("Lift stopping between floors in Tower B", "Maintenance"),
+    ("Corridor lights not working in Tower C", "Maintenance"),
+    ("Society clubhouse AC not working", "Maintenance"),
+    ("Community hall fan not running", "Maintenance"),
+    ("Common area wall paint peeling", "Maintenance"),
+    ("Gym equipment broken", "Maintenance"),
+    ("Playground slide damaged", "Maintenance"),
+    ("Society gate motor not functioning", "Maintenance"),
+    ("Parking area lights not working", "Maintenance"),
+    ("Staircase railing loose in Block D", "Maintenance"),
+    ("Swimming pool pump not working", "Maintenance"),
+    ("Garden irrigation system broken", "Maintenance"),
+    ("Common area switchboard damaged", "Maintenance"),
+    ("Fire extinguisher missing in corridor", "Maintenance"),
+    ("Notice board glass broken", "Maintenance"),
+    ("Water pump making loud noise", "Maintenance"),
+    ("Basement ventilation system not working", "Maintenance"),
+    ("Clubhouse tiles broken", "Maintenance"),
+    ("Intercom system down in multiple towers", "Maintenance"),
+    ("Generator backup not working", "Maintenance"),
+    ("Parking gate sensor not functioning", "Maintenance"),
+    ("Solar panels not charging properly", "Maintenance"),
+    ("Society main gate rusting", "Maintenance"),
+    ("Staircase lights fused in Tower F", "Maintenance"),
+    ("Garden benches are broken", "Maintenance"),
+    ("Common area doors not closing properly", "Maintenance"),
+    ("Society lobby glass cracked", "Maintenance"),
+    ("Tower entrance signboard damaged", "Maintenance"),
+    ("Clubhouse sound system not working", "Maintenance"),
 
     # Security
-    ("Unauthorized person entered building", "Security"),
-    ("Security guard not available at gate", "Security"),
-    ("CCTV camera not recording", "Security"),
-    ("Theft happened in parking area", "Security"),
-    ("Suspicious activity near main gate", "Security"),
-    ("Gate left open without guard", "Security"),
-    ("Stranger loitering near society entrance", "Security"),
+    ("Unauthorized person entered the society", "Security"),
+    ("Security guard not available at society gate", "Security"),
+    ("CCTV not recording in parking area", "Security"),
+    ("Suspicious activity near society entrance", "Security"),
+    ("Main gate left open without guard", "Security"),
+    ("Stranger loitering near tower lobby", "Security"),
+    ("Visitor entered without approval", "Security"),
+    ("Delivery boy not verified by guard", "Security"),
+    ("Unknown vehicle parked inside society", "Security"),
+    ("Security alarm not working in tower", "Security"),
+    ("Guard sleeping during night shift", "Security"),
+    ("Unauthorized vendors entering society", "Security"),
+    ("Fight happening near front gate", "Security"),
+    ("Suspicious bag found in society garden", "Security"),
+    ("Patrolling not done in basement", "Security"),
+    ("CCTV blind spot near kids play area", "Security"),
+    ("Main gate boom barrier not working", "Security"),
+    ("Security light not working near clubhouse", "Security"),
+    ("Watchman allowing visitors without confirmation", "Security"),
+    ("Restricted area accessed by unknown people", "Security"),
+    ("Kids entering rooftop without permission", "Security"),
+    ("Strangers taking photos inside society", "Security"),
+    ("No guard in tower lobby", "Security"),
+    ("Parking entry camera malfunctioning", "Security"),
+    ("Gate sensor not detecting vehicles", "Security"),
+    ("Night security patrol delayed", "Security"),
+    ("Vehicle gate stuck open", "Security"),
+    ("Vendor roaming without ID card", "Security"),
+    ("Unauthorized car entry during night", "Security"),
+    ("Suspicious noise from basement parking", "Security"),
+
 ]
 
-# -------------------------------
 # 2️⃣ Train ML Model
-# -------------------------------
 texts = [t[0] for t in training_data]
 labels = [t[1] for t in training_data]
 
-vectorizer = TfidfVectorizer(stop_words="english")
+vectorizer = TfidfVectorizer(stop_words="english", ngram_range=(1, 2))
 X = vectorizer.fit_transform(texts)
-model = LogisticRegression()
+model = LogisticRegression(max_iter=2000, C=2.0)
 model.fit(X, labels)
 
-# -------------------------------
 # 3️⃣ Text Cleaning Helper
-# -------------------------------
 def clean_text(text):
     """Remove unwanted characters and lowercase the text."""
-    text = re.sub(r"[^a-zA-Z\s]", "", text.lower())
+    # text = re.sub(r"[^a-zA-Z\s]", "", text.lower())
+    text = re.sub(r'\s+', ' ', text)
     return text.strip()
 
 
@@ -119,9 +181,7 @@ def get_complaints_by_staff(staff_id):
 
 
 
-# ---------------------------------------------
-# 3️⃣ GET all complaints
-# ---------------------------------------------
+#  GET all complaints
 @complaint.route("/", methods=["GET"])
 def get_complaints():
     try:
@@ -144,9 +204,7 @@ def get_complaints():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# -------------------------------
 # 4️⃣ API Endpoint for Complaint Classification
-# -------------------------------
 @complaint.route('/', methods=['POST'])
 def addComplaint():
     try:
