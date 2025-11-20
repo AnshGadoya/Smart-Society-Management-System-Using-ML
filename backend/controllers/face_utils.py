@@ -46,6 +46,7 @@ def detect_faces_dnn(frame, conf_threshold=CONFIDENCE_THRESHOLD):
     FACE_NET.setInput(blob)
     detections = FACE_NET.forward()
 
+
     boxes = []
     for i in range(detections.shape[2]):
         confidence = detections[0, 0, i, 2]

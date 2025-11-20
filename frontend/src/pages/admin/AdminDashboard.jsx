@@ -24,117 +24,16 @@ import {useEffect, useState} from "react";
 import {Speedometer2, HouseDoor, Megaphone, PlusCircle, InfoCircle, Buildings} from "react-bootstrap-icons";
 
 function AdminDashboard() {
-    const transactions = [
-        {
-            icon: "assets/img/icons/stripe.svg",
-            title: "General Check-up",
-            invoice: "#INV5889",
-            amount: "+ $234",
-        },
-        {
-            icon: "assets/img/icons/paypal.svg",
-            title: "Online Consultation",
-            invoice: "#INV7874",
-            amount: "+ $234",
-        },
-    ];
-
-    const columns = ["Name", "Email", "Phone", "Visit Date", "Purpose", "Code"];
-
-    const visitors = [
-        {
-            name: "Arav Sharma",
-            email: "arav.sharma24@gmail.com",
-            phone: "9876543210",
-            visitDate: "2025-08-25",
-            purpose: "Meeting",
-            code: 654321
-        },
-        {
-            name: "Vivaan Patel",
-            email: "vivaan.patel34@gmail.com",
-            phone: "9123456780",
-            visitDate: "2025-08-26",
-            purpose: "Delivery",
-            code: 123456
-        },
-        {
-            name: "Aditya Reddy",
-            email: "aditya.reddy42@gmail.com",
-            phone: "9988776655",
-            visitDate: "2025-08-27",
-            purpose: "Maintenance",
-            code: 789012
-        },
-        {
-            name: "Vihaan Nair",
-            email: "vihaan.nair19@gmail.com",
-            phone: "9012345678",
-            visitDate: "2025-08-28",
-            purpose: "Guest",
-            code: 345678
-        },
-        {
-            name: "Arjun Gupta",
-            email: "arjun.gupta77@gmail.com",
-            phone: "9876501234",
-            visitDate: "2025-08-29",
-            purpose: "Delivery",
-            code: 901234
-        },
-        {
-            name: "Sai Kapoor",
-            email: "sai.kapoor53@gmail.com",
-            phone: "9123467890",
-            visitDate: "2025-08-30",
-            purpose: "Meeting",
-            code: 567890
-        },
-        {
-            name: "Krishna Bose",
-            email: "krishna.bose61@gmail.com",
-            phone: "9988012345",
-            visitDate: "2025-09-01",
-            purpose: "Guest",
-            code: 234567
-        },
-        {
-            name: "Shivansh Chopra",
-            email: "shivansh.chopra84@gmail.com",
-            phone: "9012345671",
-            visitDate: "2025-09-02",
-            purpose: "Maintenance",
-            code: 876543
-        },
-        {
-            name: "Aryan Iyer",
-            email: "aryan.iyer21@gmail.com",
-            phone: "9876540987",
-            visitDate: "2025-09-03",
-            purpose: "Delivery",
-            code: 432109
-        },
-        {
-            name: "Ishaan Jha",
-            email: "ishaan.jha46@gmail.com",
-            phone: "9123456701",
-            visitDate: "2025-09-04",
-            purpose: "Meeting",
-            code: 678901
-        }
-    ];
 
     const [loading, setLoading] = useState(true);
 
-
-
-     const [dashboard, setDashboard] = useState({
+    const [dashboard, setDashboard] = useState({
         residents: {count: 0, spark: [], change: 0, color: "secondary"},
         complaints: {count: 0, spark: [], change: 0, color: "secondary"},
         visitors: {count: 0, spark: [], change: 0, color: "secondary"},
     });
 
-      useEffect(() => {
+    useEffect(() => {
         loadDashboard();
     }, []);
 
@@ -322,7 +221,7 @@ function AdminDashboard() {
             </div>
 
              <TrackComplaints/>
-             {/*<BookingCalendar/>*/}
+                {/*<BookingCalendar/>*/}
                 {/*<AdminComplaints/>*/}
                 {/*<ComplaintCharts/>*/}
                 {/*<ValidateCode />*/}

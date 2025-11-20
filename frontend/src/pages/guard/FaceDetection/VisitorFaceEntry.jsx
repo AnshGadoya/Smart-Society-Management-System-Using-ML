@@ -10,6 +10,8 @@ const VisitorFaceEntry = () => {
     const [backupCode, setBackupCode] = useState("");
     const [message, setMessage] = useState("");
     const [visitorInfo, setVisitorInfo] = useState(null);
+    const [isScanning, setIsScanning] = useState(false);
+
 
     // Track last entry times per visitor_id
     const [lastEntryMap, setLastEntryMap] = useState({});
@@ -22,6 +24,9 @@ const VisitorFaceEntry = () => {
 
             const imageSrc = captureImage();
             if (!imageSrc) return;
+
+             setIsScanning(true); // START loader
+
 
             try {
                 const data = await faceVisitorApi.recognizeVisitor(imageSrc);
@@ -52,6 +57,8 @@ const VisitorFaceEntry = () => {
                 setMessage(err.response?.data?.message || "Invalid Face or backup code");
                 setVisitorInfo(null);
             }
+
+             setIsScanning(false); // STOP loader
         }, 3000);
 
         return () => clearInterval(interval);
@@ -107,6 +114,35 @@ const VisitorFaceEntry = () => {
               border-radius: 22px !important;
               object-fit: cover;
             }
+            
+             .loader-ring {
+              width: 90px;
+              height: 90px;
+              border: 6px solid rgba(255, 255, 255, 0.3);
+              border-top-color: #ffffff;
+              border-radius: 50%;
+              animation: spin 0.9s linear infinite;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
+            
+            @keyframes spin {
+              to { transform: translate(-50%, -50%) rotate(360deg); }
+            }
+            
+            .scan-overlay-text {
+              position: absolute;
+              top: 70%;
+              left: 50%;
+              transform: translateX(-50%);
+              color: white;
+              font-weight: 600;
+              text-shadow: 0px 2px 6px rgba(0,0,0,0.3);
+              font-size: 18px;
+            }
+
           `}</style>
 
             <div className="container py-4">
@@ -127,12 +163,21 @@ const VisitorFaceEntry = () => {
                                 <div className="scan-frame">
                                     <div className="scan-line"></div>
 
-                                    <Webcam
-                                        ref={webcamRef}
-                                        width="100%"
-                                        height="100%"
-                                        className="rounded"
-                                    />
+                                    <div className="scan-frame">
+                                        {isScanning && (
+                                            <>
+                                                <div className="loader-ring"></div>
+                                                <div className="scan-overlay-text">Recognising...</div>
+                                            </>
+                                        )}
+
+                                        <Webcam
+                                            ref={webcamRef}
+                                            width="100%"
+                                            height="100%"
+                                            className="rounded"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
