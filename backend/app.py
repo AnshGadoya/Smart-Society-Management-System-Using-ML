@@ -22,7 +22,7 @@ import re
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 load_dotenv()
 init_app(app)

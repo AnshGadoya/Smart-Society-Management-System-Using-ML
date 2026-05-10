@@ -22,7 +22,7 @@ def generate_code():
 
 @visitor.route('/visitors', methods=['GET'])
 def get_visitors():
-    visitors = Visitor.query.filter_by().all()
+    visitors = Visitor.query.order_by(Visitor.created_at.desc()).all()
     print(visitors)
 
     # housing_data = [{

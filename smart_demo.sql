@@ -264,7 +264,7 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`id`, `member_id`, `email`, `password`, `role`, `created_at`) VALUES
 (1, 'MEM-1760019227363-850', 'vehap40581@gmail.com', '585209', 'resident', '2025-11-09 18:57:58'),
-(2, 'MEM-1760019311600-258', 'a2@gmail.com', '818242', 'resident', '2025-11-09 18:58:08'),
+    (2, 'MEM-1760019311600-258', 'a2@gmail.com', '818242', 'resident', '2025-11-09 18:58:08'),
 (3, 'MEM-1762716217503-351', 'shubham@gmail.com', '149034', 'resident', '2025-11-09 19:23:39'),
 (5, NULL, 'admin@system.com', 'admin123', 'admin', '2025-11-10 06:54:02'),
 (6, NULL, 'security@system.com', 'security123', 'guard', '2025-11-10 06:54:02');

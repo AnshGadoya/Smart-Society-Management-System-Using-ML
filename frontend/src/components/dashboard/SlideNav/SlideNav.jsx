@@ -54,7 +54,7 @@ function SlideNav({role}) {
             {title: "Amenities", icon: <Building/>, path: PATHS.ADDFACILITY},
             // {title: "Service", icon: <Wrench/>, path: PATHS.SERVICE},
             {title: "About", icon: <InfoCircle/>, path: PATHS.ABOUT},
-            {title: "Face", icon: <PersonFill/>, path: PATHS.FACED},
+            // {title: "Face", icon: <PersonFill/>, path: PATHS.FACED},
             {title: "FAQ", icon: <Question/>, path: PATHS.FAQ},
         ]
         : role === "resident" ? [
