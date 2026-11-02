@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
-from sqlalchemy.exc import IntegrityError
+class IntegrityError(Exception):
+    pass
 
 from models.HousingUnitModel import BlockUtilityUsage
 from utils.config import db
