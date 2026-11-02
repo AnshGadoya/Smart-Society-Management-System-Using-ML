@@ -133,9 +133,11 @@ def update_notice(id):
 
 
 # ---------------- DELETE notice ----------------
-@notices.route("/<int:id>", methods=["DELETE"])
+@notices.route("/<id>", methods=["DELETE"])
 def delete_notice(id):
     notice = Notice.query.get(id)
+    if not notice:
+        notice = Notice.query.filter_by(notice_id=str(id)).first()
     if not notice:
         return jsonify({"error": "Notice not found"}), 404
 

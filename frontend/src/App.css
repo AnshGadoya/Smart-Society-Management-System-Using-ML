@@ -1,5 +1,5 @@
 .App {
-    text-align: center;
+    text-align: left;
 }
 
 .App-logo {
@@ -36,3 +36,8 @@
         transform: rotate(360deg);
     }
 }
+
+.spin-animation {
+    animation: App-logo-spin 1s linear infinite;
+}
+

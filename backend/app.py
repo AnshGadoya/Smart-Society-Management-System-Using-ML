@@ -51,7 +51,11 @@ app.register_blueprint(login, url_prefix='/login')
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return jsonify({"message": "Smart Society Management Backend Live", "status": "online"}), 200
+
+@app.route('/health')
+def health_check():
+    return jsonify({"status": "healthy"}), 200
 
 
 if __name__ == '__main__':

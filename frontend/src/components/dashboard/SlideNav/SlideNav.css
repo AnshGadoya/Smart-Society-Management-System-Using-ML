@@ -1,27 +1,89 @@
-/* SlideNav container */
+/* Modern Sidebar Styling */
 .SlideNav {
-  width: 230px;
-  background-color: #212529;
-  border-right: 1px solid #444;
-  padding: 12px;
+  width: 260px;
+  background: #0f172a;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px 14px;
   display: flex;
   flex-direction: column;
-  transition: width 0.3s ease;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #e2e8f0;
+  user-select: none;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+  z-index: 100;
 }
 
 .SlideNav.collapsed {
-  width: 70px;
+  width: 80px;
+}
+
+/* Brand Header */
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 6px 18px 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 16px;
+}
+
+.brand-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+}
+
+.brand-text h6 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.brand-badge {
+  font-size: 0.68rem;
+  background: rgba(99, 102, 241, 0.2);
+  color: #a5b4fc;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 2px;
+  border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
 /* Toggle button */
 .toggle-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 20px;
-  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  align-self: flex-end;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
 }
 
 /* Menu */
@@ -30,50 +92,93 @@
   padding: 0;
   margin: 0;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.menu::-webkit-scrollbar {
+  width: 4px;
+}
+.menu::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
 }
 
 /* Menu items */
 .menu-item {
-  margin-bottom: 12px; /* space between items */
+  margin: 0;
 }
 
 .menu-link {
   display: flex;
   align-items: center;
-  gap: 10px;
-  color: white;
+  gap: 12px;
+  color: #94a3b8;
   text-decoration: none;
-  padding: 10px 12px;
-  border-radius: 6px;
-  transition: background 0.2s ease;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 .menu-link:hover {
-  color: #0d6efd !important;
-  background-color: transparent;
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.06);
+  transform: translateX(2px);
 }
 
 .menu-link.active {
- color: #0d6efd;
- border: 1px solid #0d6efd;
- background-color: transparent !important;
+  color: #ffffff !important;
+  background: linear-gradient(90deg, rgba(79, 70, 229, 0.25) 0%, rgba(99, 102, 241, 0.12) 100%) !important;
+  border-left: 3px solid #6366f1;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+}
+
+.menu-link.active .icon {
+  color: #818cf8;
 }
 
 /* Icon and text */
 .icon {
-  font-size: 18px;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
 }
 
 .text {
-  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/*  logout  */
-.SlideNav .menu .logout {
-    margin-top: auto;
-    color: #dc3545; /* red for logout */
-}
-.SlideNav .menu .logout:hover {
-    background-color: #f8d7da;
+/* Logout */
+.logout-btn {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.logout-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #f87171;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.logout-item:hover {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
