@@ -1,22 +1,8 @@
 from utils.config import db
 
-
 class Staff(db.Model):
     __tablename__ = "staff"
-
-    staff_id = db.Column(db.String(50), primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), nullable=True)
-    phone = db.Column(db.String(20), nullable=True)
-    department = db.Column(db.String(100), nullable=True)
-    position = db.Column(db.String(100), nullable=True)
-    hire_date = db.Column(db.Date, nullable=True)
-    address = db.Column(db.Text, nullable=True)
-    emergency_contact = db.Column(db.String(100), nullable=True)
-    emergency_phone = db.Column(db.String(20), nullable=True)
-    status = db.Column(db.String(20), default="active")
-    photo = db.Column(db.String(200), nullable=True)  # store file path or URL
-    qualifications = db.Column(db.Text, nullable=True)
+    _primary_key = "staff_id"
 
     def to_dict(self):
         return {

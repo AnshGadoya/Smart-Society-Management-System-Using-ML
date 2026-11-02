@@ -1,31 +1,32 @@
 from utils.config import db
-
+import json
 
 class Notice(db.Model):
     __tablename__ = "notice"
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    notice_id = db.Column(db.String(50), primary_key=True)
-    title = db.Column(db.String(200), nullable=False)
-    body = db.Column(db.Text, nullable=False)
-    category = db.Column(db.String(50), nullable=False)
-    issue_date = db.Column(db.Date, nullable=False)
-    valid_until = db.Column(db.Date, nullable=False)
-    issuer_name = db.Column(db.String(100), nullable=False)
-    target_audience = db.Column(db.String(100), nullable=False)
-    attachments = db.Column(db.Text)  # Comma-separated files
-    ack_required = db.Column(db.String(10), default="no")
+    _primary_key = "id"
 
     def to_dict(self):
+        att = self.attachments
+        if isinstance(att, str):
+            try:
+                att_list = json.loads(att)
+            except Exception:
+                att_list = att.split(",") if att else []
+        elif isinstance(att, list):
+            att_list = att
+        else:
+            att_list = []
+
         return {
+            "id": self.id,
             "notice_id": self.notice_id,
             "title": self.title,
             "body": self.body,
             "category": self.category,
-            "issue_date": str(self.issue_date),
-            "valid_until": str(self.valid_until),
+            "issue_date": str(self.issue_date) if self.issue_date else None,
+            "valid_until": str(self.valid_until) if self.valid_until else None,
             "issuer_name": self.issuer_name,
             "target_audience": self.target_audience,
-            "attachments": self.attachments.split(",") if self.attachments else [],
-            "ack_required": self.ack_required
+            "attachments": att_list,
+            "ack_required": self.ack_required or "no"
         }

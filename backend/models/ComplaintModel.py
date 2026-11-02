@@ -1,26 +1,26 @@
 from utils.config import db
-
+from datetime import datetime
 
 class Complaint(db.Model):
     __tablename__ = "complaint"
+    _primary_key = "id"
 
-    id = db.Column(db.Integer, primary_key=True)
-    complaint_id = db.Column(db.String(50), unique=True)
-    title = db.Column(db.String(255))
-    description = db.Column(db.Text)
-    resident_name = db.Column(db.String(100))
-    flat_no = db.Column(db.String(20))
-    attachment_url = db.Column(db.String(255))
-    category = db.Column(db.String(50))
-    confidence = db.Column(db.Float)
-    status = db.Column(db.String(50), default="Pending")
-    created_at = db.Column(db.DateTime)
-
-    assigned_staff_id = db.Column(db.String(50), db.ForeignKey("staff.staff_id"), nullable=True)
-    assigned_staff = db.relationship("Staff", backref="complaints")
-
+    @property
+    def assigned_staff(self):
+        from models.StaffModel import Staff
+        if self.assigned_staff_id:
+            return Staff.query.get(self.assigned_staff_id)
+        return None
 
     def to_dict(self):
+        created_val = self.created_at
+        if isinstance(created_val, datetime):
+            created_str = created_val.strftime("%Y-%m-%d %H:%M:%S")
+        elif isinstance(created_val, str):
+            created_str = created_val
+        else:
+            created_str = None
+
         return {
             "id": self.id,
             "complaint_id": self.complaint_id,
@@ -32,5 +32,6 @@ class Complaint(db.Model):
             "category": self.category,
             "confidence": self.confidence,
             "status": self.status,
-            "created_at": self.created_at.strftime("%Y-%m-%d %H:%M:%S") if self.created_at else None
+            "created_at": created_str,
+            "assigned_staff_id": self.assigned_staff_id
         }

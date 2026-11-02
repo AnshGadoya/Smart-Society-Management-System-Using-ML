@@ -1,19 +1,10 @@
 import os
+from utils.mongo_db import MongoDB
 
-from flask_sqlalchemy import SQLAlchemy
-import pymysql
-pymysql.install_as_MySQLdb()  # <- add this here, before db.init_app
-
-
-# Initialize SQLAlchemy
-db = SQLAlchemy()
-
+# Initialize MongoDB client & ORM layer
+db = MongoDB()
 
 def init_app(app):
-    """Initialize the Flask app with MySQL and SQLAlchemy. healthtrack_demo"""
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("SQLALCHEMY_DATABASE_URI")
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Disable tracking modifications to avoid overhead
-    app.config['SQLALCHEMY_ECHO'] = True  # Set to True for debugging SQL queries
-    app.config['use_enum_values '] = True
-    # Initialize the SQLAlchemy extension with the app
+    """Initialize the Flask app with MongoDB Atlas."""
+    app.config['MONGO_URI'] = os.getenv("MONGO_URI") or os.getenv("MONGODB_URI")
     db.init_app(app)

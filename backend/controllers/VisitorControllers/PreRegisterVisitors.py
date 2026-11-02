@@ -155,15 +155,16 @@ def create_visitor_request():
         return jsonify({"error": "Invalid flat format. Use format like '1-501'"}), 400
 
     # ✅ Find member for this flat
-    member = (
-        HousingMember.query
-        .join(HousingUnit)
-        .filter(
-            HousingUnit.block_id == str(block_no),
-            HousingUnit.unit_number == str(unit_no)
-        )
-        .first()
-    )
+    try:
+        b_id = int(block_no)
+    except ValueError:
+        b_id = str(block_no)
+    unit = HousingUnit.query.filter_by(block_id=b_id, unit_number=str(unit_no)).first()
+    if not unit:
+        # Also try matching block_id as str or int
+        unit = HousingUnit.query.filter_by(block_id=str(block_no), unit_number=str(unit_no)).first()
+
+    member = HousingMember.query.filter_by(unit_id=unit.id).first() if unit else None
 
     if not member:
         return jsonify({"error": "Flat not found"}), 404

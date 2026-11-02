@@ -171,7 +171,7 @@ def get_complaints_by_staff(staff_id):
                 "description": c.description,
                 "category": c.category,
                 "status": c.status,
-                "created_at": c.created_at.strftime("%Y-%m-%d %H:%M:%S") if c.created_at else None
+                "created_at": (c.created_at.strftime("%Y-%m-%d %H:%M:%S") if hasattr(c.created_at, "strftime") else str(c.created_at)) if c.created_at else None
             } for c in complaints
         ]), 200
 
@@ -198,7 +198,7 @@ def get_complaints():
                 "category": c.category,
                 "confidence": c.confidence,
                 "status": c.status,
-                "created_at": c.created_at.strftime("%Y-%m-%d %H:%M:%S") if c.created_at else None
+                "created_at": (c.created_at.strftime("%Y-%m-%d %H:%M:%S") if hasattr(c.created_at, "strftime") else str(c.created_at)) if c.created_at else None
             } for c in complaints
         ]), 200
     except Exception as e:

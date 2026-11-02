@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
 from dotenv import load_dotenv
-from flask_migrate import Migrate
 
 from controllers.LoginController.adminLogin import seed_admin
 from controllers.LoginController.Login import login
@@ -26,8 +25,6 @@ CORS(app, supports_credentials=True)
 
 load_dotenv()
 init_app(app)
-
-migrate = Migrate(app, db)
 
 
 with app.app_context():

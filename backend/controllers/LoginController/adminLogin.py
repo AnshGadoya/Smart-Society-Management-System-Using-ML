@@ -14,9 +14,9 @@ def seed_admin():
             )
             db.session.add(default_admin)
             db.session.commit()
-            print("✅ Default admin created: admin@system.com / admin123")
+            print("[Admin] Default admin created: admin@system.com / admin123")
         else:
-            print("ℹ️ Admin already exists.")
+            print("[Admin] Admin already exists.")
     except Exception as e:
         db.session.rollback()
-        print(f"⚠️ Error creating default admin: {e}")
+        print(f"[Admin] Warning creating default admin: {e}")

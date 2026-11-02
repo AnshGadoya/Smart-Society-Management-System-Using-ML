@@ -1,20 +1,9 @@
+from utils.config import db
 from datetime import datetime
 
-from utils.config import db
-
-
 class Visitor(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), nullable=False)
-    phone = db.Column(db.String(20))
-    visit_date = db.Column(db.String(20), nullable=False)
-    purpose = db.Column(db.String(200))
-    flat_no = db.Column(db.String(20), nullable=False)
-    code = db.Column(db.String(6), nullable=False, unique=True)
-    member_id = db.Column(db.String(50), db.ForeignKey("housing_members.member_id"), nullable=True)
-    status = db.Column(db.String(20), default="pending")  # pending, approved, declined
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    __tablename__ = "visitor"
+    _primary_key = "id"
 
     def to_dict(self):
         return {
@@ -22,9 +11,9 @@ class Visitor(db.Model):
             'name': self.name,
             'email': self.email,
             'phone': self.phone,
-            'visitDate': self.visit_date,
+            'visitDate': self.visit_date or getattr(self, "visitDate", ""),
             'purpose': self.purpose,
-            'flatNo': self.flat_no,
+            'flatNo': self.flat_no or getattr(self, "flatNo", ""),
             'member_id': self.member_id,
             'code': self.code,
             'status': self.status
