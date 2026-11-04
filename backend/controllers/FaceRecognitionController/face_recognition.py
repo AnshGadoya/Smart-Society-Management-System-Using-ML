@@ -23,20 +23,23 @@ def refresh_cache():
     global ENCODINGS_CACHE
     ENCODINGS_CACHE = []
 
-    visitors = FaceVisitor.query.all()
-    for v in visitors:
-        if not v.face_encoding:
-            continue
+    try:
+        visitors = FaceVisitor.query.all()
+        for v in visitors:
+            if not v.face_encoding:
+                continue
 
-        emb = np.array(json.loads(v.face_encoding), dtype=np.float32)
+            emb = np.array(json.loads(v.face_encoding), dtype=np.float32)
 
-        ENCODINGS_CACHE.append({
-            "visitor_id": v.visitor_id,
-            "name": v.name,
-            "work_type": v.work_type,
-            "embedding": emb,
-            "backup_code": v.backup_code
-        })
+            ENCODINGS_CACHE.append({
+                "visitor_id": v.visitor_id,
+                "name": v.name,
+                "work_type": v.work_type,
+                "embedding": emb,
+                "backup_code": v.backup_code
+            })
+    except Exception as e:
+        print(f"[FaceRecognition] Warning: Could not refresh face cache on startup: {e}")
 
 # refresh_cache()
 

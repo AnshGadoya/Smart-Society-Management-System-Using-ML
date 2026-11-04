@@ -28,10 +28,13 @@ init_app(app)
 
 
 with app.app_context():
-    refresh_cache()
-    # db.drop_all()
-    db.create_all()
-    seed_admin()
+    try:
+        refresh_cache()
+        # db.drop_all()
+        db.create_all()
+        seed_admin()
+    except Exception as e:
+        print(f"[Startup Warning] DB startup tasks encountered an error: {e}")
 
 app.register_blueprint(blocks, url_prefix="/blocks")
 app.register_blueprint(housing, url_prefix='/housing')

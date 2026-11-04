@@ -275,7 +275,17 @@ class MongoDB:
             return
 
         try:
-            self.client = MongoClient(uri, serverSelectionTimeoutMS=5000)
+            try:
+                import certifi
+                ca_file = certifi.where()
+            except ImportError:
+                ca_file = None
+
+            client_kwargs = {"serverSelectionTimeoutMS": 10000}
+            if ca_file:
+                client_kwargs["tlsCAFile"] = ca_file
+
+            self.client = MongoClient(uri, **client_kwargs)
             try:
                 self.db = self.client.get_default_database()
             except Exception:
