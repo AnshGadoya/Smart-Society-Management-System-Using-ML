@@ -66,7 +66,14 @@ def verify_login():
         if role == "admin":
             admin = Login.query.filter_by(role="admin", email=email, password=password).first()
             if not admin:
-                return jsonify({"error": "Invalid admin credentials"}), 401
+                # If database has no admin user at all, auto-seed default admin
+                any_admin = Login.query.filter_by(role="admin").first()
+                if not any_admin and email == "admin@system.com" and password == "admin123":
+                    from controllers.LoginController.adminLogin import seed_admin
+                    seed_admin()
+                    admin = Login.query.filter_by(role="admin", email=email, password=password).first()
+                if not admin:
+                    return jsonify({"error": "Invalid admin credentials"}), 401
             return jsonify({"message": "Admin login successful", "role": "admin"}), 200
 
         if role == "guard":
