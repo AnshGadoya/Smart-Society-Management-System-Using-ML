@@ -33,11 +33,12 @@ import {
     UTILITY_UPDATE, VISITOR_APPROVE, VISITOR_DECLINE,
     VISITOR_GET,
     VISITOR_POST, VISITOR_VERIFY,
+    API_BASE_URL,
 } from "../utils/constants/apiConstants";
 
 // axios instance with correct base URL
 const API = axios.create({
-    baseURL: "http://127.0.0.1:5000", headers: {'Content-Type': 'application/json'},
+    baseURL: API_BASE_URL, headers: {'Content-Type': 'application/json'},
 });
 
 // ---------------- HOUSING ----------------

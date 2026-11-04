@@ -1,6 +1,6 @@
-// Correct Flask backend base URL
-
-const API_BASE_URL = 'http://127.0.0.1:5000/';
+// Backend base URL (defaults to Render hosted backend, or overridden by REACT_APP_API_URL)
+const RAW_URL = process.env.REACT_APP_API_URL || 'https://smart-society-backend-x77w.onrender.com';
+export const API_BASE_URL = RAW_URL.endsWith('/') ? RAW_URL : `${RAW_URL}/`;
 
 // ---------------- Block ------------------
 export const BLOCK_POST = API_BASE_URL + "blocks/";
